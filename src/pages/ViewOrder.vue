@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0 max-w-5xl mx-auto">
     <!-- Top Action Bar -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -56,7 +56,7 @@
     <div class="p-6 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm space-y-4">
       <div class="flex items-center justify-between">
         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Manufacturing Pipeline</h3>
-        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Step 4 of 6 • In Sintering</span>
+        <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Step 4 of 6 • In Sintering</span>
       </div>
 
       <div class="grid grid-cols-2 sm:grid-cols-6 gap-2">
@@ -66,7 +66,7 @@
           :class="[
             'p-3 rounded-2xl border text-center transition-all',
             idx < 3
-              ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
+              ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-600 dark:text-indigo-400'
               : idx === 3
               ? 'bg-black text-white dark:bg-white dark:text-black border-transparent shadow-sm'
               : 'bg-slate-50 dark:bg-[#0c1220] border-slate-200 dark:border-slate-800 text-slate-400'
@@ -95,7 +95,7 @@
 
             <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c1220] border border-slate-200/50 dark:border-slate-800/50">
               <span class="text-slate-400 block text-[11px]">VITA Shade</span>
-              <span class="font-bold text-emerald-600 dark:text-emerald-400 text-sm">{{ currentOrder?.shade || 'A2' }}</span>
+              <span class="font-bold text-indigo-600 dark:text-indigo-400 text-sm">{{ currentOrder?.shade || 'A2' }}</span>
             </div>
 
             <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0c1220] border border-slate-200/50 dark:border-slate-800/50">
@@ -144,8 +144,8 @@
           </div>
 
           <div class="h-64 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col items-center justify-center p-6 text-center text-white relative overflow-hidden group">
-            <div class="absolute inset-0 bg-radial from-emerald-500/10 via-transparent to-transparent opacity-50"></div>
-            <i class="pi pi-box text-5xl text-emerald-400 mb-2 group-hover:scale-110 transition-transform" />
+            <div class="absolute inset-0 bg-radial from-indigo-500/10 via-transparent to-transparent opacity-50"></div>
+            <i class="pi pi-box text-5xl text-indigo-400 mb-2 group-hover:scale-110 transition-transform" />
             <div class="text-xs font-bold relative z-10">Prep Arch Alignment: Optimal</div>
             <p class="text-[11px] text-slate-400 relative z-10 mt-0.5">Occlusal clearance: 1.8mm • Mesial margin: Chamfer 0.5mm</p>
           </div>
@@ -162,7 +162,7 @@
             <Avatar
               :label="(currentOrder?.doctorName || 'Dr. Mitchell').slice(0, 2).toUpperCase()"
               shape="circle"
-              class="!w-10 !h-10 !bg-emerald-500/10 !text-emerald-600 dark:!text-emerald-400 !font-bold"
+              class="!w-10 !h-10 !bg-indigo-500/10 !text-indigo-600 dark:!text-indigo-400 !font-bold"
             />
             <div>
               <div class="text-xs font-bold text-slate-900 dark:text-white">{{ currentOrder?.doctorName || 'Dr. Sarah Mitchell' }}</div>

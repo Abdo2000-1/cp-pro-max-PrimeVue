@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -31,8 +31,8 @@
         <div>
           <span class="text-xs text-slate-400 font-medium">{{ hw.brand }}</span>
           <h4 class="font-extrabold text-sm text-slate-900 dark:text-white mt-0.5">{{ hw.name }}</h4>
-          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 mt-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
             <span>{{ hw.status }} • {{ hw.fps }}</span>
           </span>
         </div>
@@ -57,7 +57,7 @@
       <DataTable :value="filteredOrders" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
         <Column field="orderNumber" header="Order #">
           <template #body="{ data }">
-            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               #{{ data.orderNumber }}
             </router-link>
           </template>
@@ -96,7 +96,7 @@
               <button
                 type="button"
                 @click="openScanViewer(data)"
-                class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-colors"
+                class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-indigo-500 hover:text-white transition-colors"
               >
                 Inspect 3D
               </button>

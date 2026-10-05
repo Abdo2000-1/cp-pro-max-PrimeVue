@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0" v-if="patient">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -11,7 +11,7 @@
           <i class="pi pi-arrow-left text-xs" />
         </button>
         <div class="flex items-center gap-3">
-          <Avatar :label="patient.name[0]" shape="circle" size="large" class="bg-emerald-500/10 text-emerald-600 font-bold" />
+          <Avatar :label="patient.name[0]" shape="circle" size="large" class="bg-indigo-500/10 text-indigo-600 font-bold" />
           <div>
             <div class="flex items-center gap-2">
               <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">{{ patient.name }}</h1>
@@ -53,7 +53,7 @@
       <DataTable :value="patientOrders" responsiveLayout="scroll" class="p-datatable-sm text-xs">
         <Column field="orderNumber" header="Order #">
           <template #body="{ data }">
-            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               #{{ data.orderNumber }}
             </router-link>
           </template>

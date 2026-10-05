@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header (Matching Image 4) -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -13,8 +13,8 @@
 
       <!-- Right: Active Counter Pill (Image 4 style) -->
       <div class="flex items-center gap-3">
-        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold">
-          <span class="w-2 h-2 rounded-full bg-emerald-500" />
+        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-indigo-500" />
           <span>{{ orders.length }} Active Orders</span>
         </div>
 
@@ -97,7 +97,7 @@
           class="p-2 rounded-2xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
           title="Refresh Table Data"
         >
-          <i :class="['pi pi-refresh text-xs', isRefreshing ? 'animate-spin text-emerald-500' : '']" />
+          <i :class="['pi pi-refresh text-xs', isRefreshing ? 'animate-spin text-indigo-500' : '']" />
         </button>
 
         <!-- Quick Stepper (Image 4 style: 1 of 15 < >) -->
@@ -128,7 +128,7 @@
     <div v-if="simulatedState === 'loading'" class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm p-6 space-y-4">
       <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800/80">
         <div class="flex items-center gap-3">
-          <i class="pi pi-spin pi-spinner text-emerald-500 text-lg" />
+          <i class="pi pi-spin pi-spinner text-indigo-500 text-lg" />
           <div>
             <h4 class="text-xs font-bold text-slate-900 dark:text-white">Synchronizing PACS Dental Repository...</h4>
             <p class="text-[11px] text-slate-400">Loading 64 clinical records, STL geometries, and milling schedules</p>
@@ -208,7 +208,7 @@
           <template #body="{ data }">
             <router-link
               :to="`/orders/${data.id}`"
-              class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+              class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
             >
               #{{ data.orderNumber }}
             </router-link>
@@ -228,7 +228,7 @@
                 <span
                   :class="[
                     'absolute top-0 right-0 w-2 h-2 rounded-full border border-white dark:border-slate-900',
-                    data.status === 'Completed' || data.status === 'Ready' ? 'bg-emerald-500' : 'bg-amber-500'
+                    data.status === 'Completed' || data.status === 'Ready' ? 'bg-indigo-500' : 'bg-amber-500'
                   ]"
                 />
               </div>
@@ -297,7 +297,7 @@
               <button
                 type="button"
                 @click="$router.push(`/orders/${data.id}`)"
-                class="p-1.5 rounded-lg hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+                class="p-1.5 rounded-lg hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
                 title="View Case"
               >
                 <i class="pi pi-eye text-xs" />

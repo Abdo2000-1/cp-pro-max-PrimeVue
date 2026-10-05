@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="flex items-center gap-2.5 select-none">
     <div class="w-10 h-10 rounded-2xl bg-black dark:bg-white text-white dark:text-black flex items-center justify-center shadow-lg shadow-black/10 shrink-0 transition-transform hover:scale-105">
       <!-- PrimeVue Helmet Icon SVG -->
@@ -9,7 +9,7 @@
     <div v-if="showText" class="flex flex-col">
       <div class="flex items-center gap-1.5">
         <span class="font-extrabold tracking-wider text-base text-slate-900 dark:text-white font-sans">PRIMEVUE</span>
-        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-mono">AURA</span>
+        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-mono">AURA</span>
       </div>
       <span class="text-[10px] text-slate-400 font-medium tracking-tight">DentaLab Enterprise</span>
     </div>

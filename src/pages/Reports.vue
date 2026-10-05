@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -45,7 +45,7 @@
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm relative overflow-hidden">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Gross Billings</span>
-          <div class="w-8 h-8 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
             <i class="pi pi-dollar text-xs" />
           </div>
         </div>
@@ -91,7 +91,7 @@
             <i class="pi pi-shield-check text-xs" />
           </div>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-2">0.82%</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-2">0.82%</div>
         <div class="flex items-center gap-1.5 mt-2">
           <Tag value="Industry Top 1%" severity="success" class="!text-[10px] !font-bold !px-2 !py-0.5 !rounded-lg" />
           <span class="text-[10px] text-slate-400">Benchmark: 2.5%</span>
@@ -110,7 +110,7 @@
           </div>
           <div class="flex items-center gap-3 text-xs">
             <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
               <span class="text-slate-500">Revenue ($k)</span>
             </div>
             <div class="flex items-center gap-1.5">
@@ -139,7 +139,7 @@
         <div class="space-y-2 text-xs">
           <div class="flex items-center justify-between py-1 border-b border-slate-100 dark:border-slate-800/80">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
               <span class="font-medium text-slate-700 dark:text-slate-300">Multi-Layer Zirconia</span>
             </div>
             <span class="font-bold text-slate-900 dark:text-white">48%</span>
@@ -223,7 +223,7 @@
 
         <Column field="revenue" header="Billed Volume">
           <template #body="{ data }">
-            <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ formatCurrency(data.revenue) }}</span>
+            <span class="font-bold text-indigo-600 dark:text-indigo-400">{{ formatCurrency(data.revenue) }}</span>
           </template>
         </Column>
 

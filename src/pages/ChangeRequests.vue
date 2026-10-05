@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -49,7 +49,7 @@
               <button
                 type="button"
                 @click="approveRequest(data)"
-                class="px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold hover:bg-emerald-500 hover:text-white transition-colors"
+                class="px-2.5 py-1 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold hover:bg-indigo-500 hover:text-white transition-colors"
               >
                 Approve
               </button>

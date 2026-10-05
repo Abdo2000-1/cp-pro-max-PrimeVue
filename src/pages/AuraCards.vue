@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header (Matching Image 3) -->
     <div class="flex items-center justify-between">
@@ -167,10 +167,10 @@
           <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Upload Files</label>
           <div
             @click="triggerUpload"
-            class="border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-emerald-500 rounded-3xl p-6 text-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-900/30"
+            class="border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-indigo-500 rounded-3xl p-6 text-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-900/30"
           >
             <div class="w-10 h-10 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center mx-auto mb-2 text-slate-600 dark:text-slate-300 shadow-2xs">
-              <i class="pi pi-cloud-upload text-lg text-emerald-500" />
+              <i class="pi pi-cloud-upload text-lg text-indigo-500" />
             </div>
             <div class="text-xs font-bold text-slate-800 dark:text-slate-200">
               Click to upload <span class="font-normal text-slate-400">or drop files</span>
@@ -205,12 +205,12 @@
         <!-- Visibility Radio Selector -->
         <div class="flex items-center gap-6 pt-1 text-xs">
           <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-700 dark:text-slate-300">
-            <input type="radio" v-model="visibility" value="everyone" class="accent-emerald-500" />
+            <input type="radio" v-model="visibility" value="everyone" class="accent-indigo-500" />
             <i class="pi pi-globe text-xs text-slate-400" />
             <span>Everyone</span>
           </label>
           <label class="flex items-center gap-2 cursor-pointer font-medium text-slate-700 dark:text-slate-300">
-            <input type="radio" v-model="visibility" value="admins" class="accent-emerald-500" />
+            <input type="radio" v-model="visibility" value="admins" class="accent-indigo-500" />
             <i class="pi pi-users text-xs text-slate-400" />
             <span>Admins only</span>
           </label>

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0" v-if="currentCase">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div class="flex items-center gap-3">
@@ -11,7 +11,7 @@
         </button>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">#{{ currentCase.caseNumber }}</span>
+            <span class="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">#{{ currentCase.caseNumber }}</span>
             <Tag :value="currentCase.status" severity="info" rounded class="text-[10px]" />
           </div>
           <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-0.5">
@@ -54,7 +54,7 @@
       <DataTable :value="linkedOrders" responsiveLayout="scroll" class="p-datatable-sm text-xs">
         <Column field="orderNumber" header="Order #">
           <template #body="{ data }">
-            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               #{{ data.orderNumber }}
             </router-link>
           </template>
@@ -75,7 +75,7 @@
     </div>
   </div>
   <div v-else class="p-12 text-center text-slate-400">
-    Case not found. <router-link to="/cases" class="text-emerald-500 font-bold">Back to cases</router-link>
+    Case not found. <router-link to="/cases" class="text-indigo-500 font-bold">Back to cases</router-link>
   </div>
 </template>
 

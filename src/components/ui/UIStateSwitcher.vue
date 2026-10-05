@@ -1,0 +1,63 @@
+﻿<template>
+  <div class="inline-flex max-w-full overflow-x-auto no-scrollbar items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700/80 text-xs shadow-inner">
+    <span class="text-[10px] font-bold text-slate-400 px-2 uppercase tracking-wider hidden md:inline-block shrink-0">
+      {{ label }}:
+    </span>
+
+    <button
+      v-for="s in states"
+      :key="s.id"
+      type="button"
+      :title="s.label"
+      @click="selectState(s.id)"
+      :class="[
+        'flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-xl text-xs font-semibold transition-all duration-150 shrink-0 cursor-pointer',
+        currentState === s.id
+          ? `${s.activeBg} ${s.activeText} shadow-xs font-bold scale-[1.02]`
+          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-700/50'
+      ]"
+    >
+      <span class="w-1.5 h-1.5 rounded-full" :class="s.dotColor" />
+      <span class="hidden sm:inline">{{ s.label }}</span>
+      <span class="sm:hidden">{{ s.shortLabel }}</span>
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { OrdersViewState } from '@/types';
+import { sound } from '@/utils/sound';
+
+export type UIStateType = OrdersViewState;
+
+const props = withDefaults(defineProps<{
+  modelValue?: OrdersViewState;
+  state?: OrdersViewState;
+  label?: string;
+}>(), {
+  modelValue: undefined,
+  state: undefined,
+  label: 'View State',
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: OrdersViewState): void;
+  (e: 'change', value: OrdersViewState): void;
+}>();
+
+const currentState = computed(() => props.state ?? props.modelValue ?? 'normal');
+
+const states: { id: OrdersViewState; label: string; shortLabel: string; activeBg: string; activeText: string; dotColor: string }[] = [
+  { id: 'normal', label: 'Live Data', shortLabel: 'Live', activeBg: 'bg-white dark:bg-slate-700', activeText: 'text-slate-900 dark:text-white', dotColor: 'bg-indigo-500' },
+  { id: 'loading', label: 'Loading', shortLabel: 'Load', activeBg: 'bg-indigo-500/15 dark:bg-indigo-950/40', activeText: 'text-indigo-700 dark:text-indigo-300', dotColor: 'bg-indigo-500 animate-ping' },
+  { id: 'empty', label: 'Empty State', shortLabel: 'Empty', activeBg: 'bg-slate-200 dark:bg-slate-700', activeText: 'text-slate-800 dark:text-slate-200', dotColor: 'bg-slate-400' },
+  { id: 'error', label: 'Error', shortLabel: 'Error', activeBg: 'bg-rose-500/15 dark:bg-rose-950/40', activeText: 'text-rose-700 dark:text-rose-300', dotColor: 'bg-rose-500' },
+];
+
+const selectState = (val: OrdersViewState) => {
+  emit('update:modelValue', val);
+  emit('change', val);
+  sound.playClick(640);
+};
+</script>

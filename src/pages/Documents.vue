@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -32,7 +32,7 @@
         </div>
         <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">42.8 GB</div>
         <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
-          <div class="bg-emerald-500 h-full rounded-full" style="width: 42.8%"></div>
+          <div class="bg-indigo-500 h-full rounded-full" style="width: 42.8%"></div>
         </div>
         <span class="text-[10px] text-slate-400 mt-1 block">42.8% of 100 GB tier utilized</span>
       </div>
@@ -40,10 +40,10 @@
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm">
         <div class="flex items-center justify-between">
           <span class="text-xs text-slate-400 font-semibold">3D CAD / STL Scans</span>
-          <i class="pi pi-box text-emerald-500 text-sm" />
+          <i class="pi pi-box text-indigo-500 text-sm" />
         </div>
         <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">1,480 Files</div>
-        <p class="text-[10px] text-emerald-500 mt-2 font-medium">99.9% DICOM 3.0 verified</p>
+        <p class="text-[10px] text-indigo-500 mt-2 font-medium">99.9% DICOM 3.0 verified</p>
       </div>
 
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm">
@@ -60,7 +60,7 @@
           <span class="text-xs text-slate-400 font-semibold">HIPAA Compliance</span>
           <i class="pi pi-shield text-sky-500 text-sm" />
         </div>
-        <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">100% Encrypted</div>
+        <div class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">100% Encrypted</div>
         <p class="text-[10px] text-slate-400 mt-2 font-medium">AES-256 at rest & in transit</p>
       </div>
     </div>
@@ -203,8 +203,8 @@
           />
         </div>
 
-        <div class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-emerald-500/50 transition cursor-pointer">
-          <i class="pi pi-cloud-upload text-3xl text-emerald-500 mb-2" />
+        <div class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-3xl p-6 text-center hover:border-indigo-500/50 transition cursor-pointer">
+          <i class="pi pi-cloud-upload text-3xl text-indigo-500 mb-2" />
           <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Drag & drop files or browse</p>
           <p class="text-[11px] text-slate-400 mt-0.5">Supports .STL, .PLY, .DCM, .ZIP, .PDF up to 250MB</p>
         </div>
@@ -242,11 +242,11 @@
     >
       <div v-if="selectedDoc" class="space-y-4">
         <div class="h-64 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col items-center justify-center p-6 text-center text-white relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-teal-500/10"></div>
-          <i :class="[getFileIcon(selectedDoc.type), 'text-5xl text-emerald-400 mb-3 relative z-10']" />
+          <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/10 via-transparent to-violet-500/10"></div>
+          <i :class="[getFileIcon(selectedDoc.type), 'text-5xl text-indigo-400 mb-3 relative z-10']" />
           <h3 class="text-base font-bold relative z-10">{{ selectedDoc.title }}</h3>
           <p class="text-xs text-slate-400 relative z-10 mt-1">{{ selectedDoc.format.toUpperCase() }} Object • {{ selectedDoc.size }}</p>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-semibold mt-3 relative z-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] font-semibold mt-3 relative z-10">
             <i class="pi pi-check-circle text-xs" />
             Integrity Check Passed (SHA-256)
           </span>
@@ -433,7 +433,7 @@ const getFileIcon = (type: string) => {
 
 const getFileIconClass = (type: string) => {
   switch (type) {
-    case '3d': return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400';
+    case '3d': return 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400';
     case 'archive': return 'bg-amber-500/10 text-amber-500';
     case 'pdf': return 'bg-rose-500/10 text-rose-500';
     default: return 'bg-slate-100 text-slate-600';

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <!-- Mobile Backdrop -->
     <div
@@ -84,7 +84,7 @@
                 'w-7 h-7 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110',
                 isActive(item.path)
                   ? 'bg-white/10 dark:bg-black/10'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-emerald-500/10 group-hover:text-emerald-500'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 group-hover:bg-indigo-500/10 group-hover:text-indigo-500'
               ]"
             >
               <i :class="[item.icon, 'text-xs']" />
@@ -100,7 +100,7 @@
                 'text-[10px] font-bold px-1.5 py-0.5 rounded-full',
                 isActive(item.path)
                   ? 'bg-white/20 text-white dark:bg-black/20 dark:text-black'
-                  : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                  : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
               ]"
             >
               {{ item.badge }}
@@ -136,10 +136,10 @@
             title="Dr. Evan Vance • Chief Dental Technologist"
           >
             <div class="relative shrink-0">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 text-white font-bold flex items-center justify-center text-xs shadow-xs">
                 EV
               </div>
-              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full" />
+              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-indigo-500 border-2 border-white dark:border-slate-900 rounded-full" />
             </div>
             <div v-if="!collapsed" class="min-w-0 flex-1">
               <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Dr. Evan Vance</p>

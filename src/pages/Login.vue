@@ -1,9 +1,9 @@
-<template>
+﻿<template>
   <div class="min-h-screen w-full flex items-center justify-center p-4 bg-slate-50 dark:bg-[#060911] text-slate-900 dark:text-white transition-colors">
     <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-2xl overflow-hidden">
       <!-- Left Hero Pane -->
       <div class="p-8 sm:p-10 bg-slate-900 text-white flex flex-col justify-between relative overflow-hidden">
-        <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
 
         <div>
           <!-- PrimeVue Logo & Title -->
@@ -12,7 +12,7 @@
             <div>
               <div class="flex items-center gap-1.5">
                 <span class="text-base font-black tracking-tight">PrimeVue</span>
-                <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">Aura v4</span>
+                <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400">Aura v4</span>
               </div>
               <p class="text-xs text-slate-400">Dental Prosthetics Cloud</p>
             </div>
@@ -28,15 +28,15 @@
 
             <div class="space-y-2.5 pt-4 text-xs text-slate-300">
               <div class="flex items-center gap-2">
-                <i class="pi pi-check text-emerald-400 text-xs" />
+                <i class="pi pi-check text-indigo-400 text-xs" />
                 <span>32-Tooth Interactive Universal Odontogram</span>
               </div>
               <div class="flex items-center gap-2">
-                <i class="pi pi-check text-emerald-400 text-xs" />
+                <i class="pi pi-check text-indigo-400 text-xs" />
                 <span>High-density Aura DataTables with live filters</span>
               </div>
               <div class="flex items-center gap-2">
-                <i class="pi pi-check text-emerald-400 text-xs" />
+                <i class="pi pi-check text-indigo-400 text-xs" />
                 <span>HIPAA & GDPR Compliant DICOM cloud repository</span>
               </div>
             </div>
@@ -96,7 +96,7 @@
             <div>
               <div class="flex items-center justify-between mb-1">
                 <label class="text-xs font-bold text-slate-700 dark:text-slate-300">Password</label>
-                <a href="#" class="text-[11px] text-emerald-500 hover:underline">Forgot?</a>
+                <a href="#" class="text-[11px] text-indigo-500 hover:underline">Forgot?</a>
               </div>
               <InputText
                 v-model="password"

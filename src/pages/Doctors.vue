@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -28,7 +28,7 @@
             <div class="flex items-center gap-2.5">
               <Avatar :label="data.name.replace('Dr. ', '')[0]" shape="circle" class="bg-cyan-500/10 text-cyan-600 font-bold" />
               <div>
-                <router-link :to="`/doctors/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-emerald-500 transition-colors">
+                <router-link :to="`/doctors/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-indigo-500 transition-colors">
                   {{ data.name }}
                 </router-link>
                 <div class="text-[10px] text-slate-400">{{ data.specialty }}</div>

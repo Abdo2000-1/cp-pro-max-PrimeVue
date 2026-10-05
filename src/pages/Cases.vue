@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -62,7 +62,7 @@
       <DataTable :value="filteredCases" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
         <Column field="caseNumber" header="Case #">
           <template #body="{ data }">
-            <router-link :to="`/cases/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+            <router-link :to="`/cases/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
               #{{ data.caseNumber }}
             </router-link>
           </template>
@@ -116,14 +116,14 @@
       <div
         v-for="c in filteredCases"
         :key="c.id"
-        class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-emerald-500/50 transition-all group"
+        class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-indigo-500/50 transition-all group"
       >
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">#{{ c.caseNumber }}</span>
+            <span class="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">#{{ c.caseNumber }}</span>
             <Tag :value="c.status" severity="info" rounded class="text-[10px]" />
           </div>
-          <h3 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+          <h3 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">
             {{ c.title }}
           </h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Patient: <strong>{{ c.patientName }}</strong></p>

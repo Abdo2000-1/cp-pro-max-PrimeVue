@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <header class="sticky top-0 z-30 px-3 pt-3 pb-1 select-none">
     <div class="rounded-3xl bg-white/90 dark:bg-[#090e18]/90 border border-slate-200/90 dark:border-slate-800/90 shadow-sm backdrop-blur-xl px-4 py-2.5 flex items-center justify-between gap-4">
       
@@ -14,8 +14,8 @@
         </button>
 
         <div class="flex items-center gap-2">
-          <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-bold">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-[10px] font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
             <span>Overview • Live</span>
           </div>
 
@@ -32,7 +32,7 @@
           <InputText
             v-model="searchQuery"
             placeholder="Search orders, patients, doctors (Ctrl+K)..."
-            class="w-full text-xs !rounded-2xl !bg-slate-50 dark:!bg-slate-900/80 !border-slate-200 dark:!border-slate-800 focus:!border-emerald-500 focus:!ring-1 focus:!ring-emerald-500"
+            class="w-full text-xs !rounded-2xl !bg-slate-50 dark:!bg-slate-900/80 !border-slate-200 dark:!border-slate-800 focus:!border-indigo-500 focus:!ring-1 focus:!ring-indigo-500"
             @keyup.enter="handleSearch"
           />
         </IconField>
@@ -71,7 +71,7 @@
           >
             <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
               <span class="text-xs font-bold text-slate-900 dark:text-white">Recent Lab Alerts</span>
-              <span class="text-[10px] text-emerald-500 font-mono font-semibold">{{ unreadCount }} new</span>
+              <span class="text-[10px] text-indigo-500 font-mono font-semibold">{{ unreadCount }} new</span>
             </div>
             <div class="divide-y divide-slate-100 dark:divide-slate-800 max-h-64 overflow-y-auto my-1">
               <div
@@ -91,7 +91,7 @@
               <router-link
                 to="/orders"
                 @click="notifOpen = false"
-                class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
               >
                 View Live Orders Hub →
               </router-link>
@@ -102,7 +102,7 @@
         <!-- Quick New Order Action -->
         <router-link
           to="/orders/create"
-          class="flex items-center gap-1 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold text-xs shadow-md shadow-emerald-500/20 transition-all active:scale-95"
+          class="flex items-center gap-1 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 text-white font-bold text-xs shadow-md shadow-indigo-500/20 transition-all active:scale-95"
         >
           <i class="pi pi-plus text-xs font-bold" />
           <span class="hidden sm:inline">New Rx</span>

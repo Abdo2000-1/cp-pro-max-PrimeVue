@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import type { 
   Order, Patient, Doctor, Clinic, Case, BillingRecord, 
@@ -41,7 +41,7 @@ export const useDentalStore = defineStore('dental', () => {
     licenseNumber: 'VUE-DNT-9824',
     avatarInitials: 'EV',
     bio: 'Pioneering next-gen dental CAD designs with Vue 3 reactive workflows.',
-    avatarColor: 'from-emerald-500 to-teal-700',
+    avatarColor: 'from-indigo-500 to-violet-700',
   });
 
   // --- LOCAL STORAGE HELPERS ---
@@ -359,6 +359,15 @@ export const useDentalStore = defineStore('dental', () => {
     createPatient,
     createDoctor,
     updateProfile,
+    toggleTheme: () => {
+      setTheme(theme.value === 'dark' ? 'light' : 'dark');
+    },
+    createOrder: (orderData: any) => {
+      return addOrder(orderData);
+    },
+    logout: () => {
+      localStorage.removeItem(STORAGE_PREFIX + 'token');
+    },
     resetData: async () => {
       localStorage.clear();
       initialized.value = false;

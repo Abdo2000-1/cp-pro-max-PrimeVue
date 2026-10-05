@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0 max-w-6xl mx-auto">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -119,14 +119,14 @@
               :class="[
                 'p-4 rounded-2xl border text-left cursor-pointer transition-all flex flex-col justify-between',
                 form.material === mat.name
-                  ? 'border-emerald-500 bg-emerald-50/20 dark:bg-emerald-950/20 ring-1 ring-emerald-500'
+                  ? 'border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 ring-1 ring-indigo-500'
                   : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-[#0c1220]/50'
               ]"
             >
               <div>
                 <div class="flex items-center justify-between mb-1">
                   <span class="text-xs font-bold text-slate-900 dark:text-white">{{ mat.name }}</span>
-                  <i v-if="form.material === mat.name" class="pi pi-check text-emerald-500 text-xs" />
+                  <i v-if="form.material === mat.name" class="pi pi-check text-indigo-500 text-xs" />
                 </div>
                 <p class="text-[11px] text-slate-400">{{ mat.desc }}</p>
               </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
               <span class="text-slate-400">Shade</span>
-              <span class="font-bold text-emerald-600 dark:text-emerald-400">{{ form.shade }}</span>
+              <span class="font-bold text-indigo-600 dark:text-indigo-400">{{ form.shade }}</span>
             </div>
             <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
               <span class="text-slate-400">Units Count</span>
@@ -242,7 +242,7 @@
 
         <!-- Scan Drag & Drop Area -->
         <div class="p-6 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm text-center">
-          <i class="pi pi-cloud-upload text-3xl text-emerald-500 mb-2" />
+          <i class="pi pi-cloud-upload text-3xl text-indigo-500 mb-2" />
           <h4 class="text-xs font-bold text-slate-900 dark:text-white">Attach Digital Impressions</h4>
           <p class="text-[11px] text-slate-400 mt-1">Direct upload STL scans or DICOM sets</p>
           <div class="mt-3">

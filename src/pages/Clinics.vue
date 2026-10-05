@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -16,17 +16,17 @@
       <div
         v-for="clinic in clinics"
         :key="clinic.id"
-        class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-emerald-500/50 transition-all group"
+        class="p-5 sm:p-6 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-indigo-500/50 transition-all group"
       >
         <div>
           <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
               <i class="pi pi-building text-base" />
             </div>
             <Tag :value="clinic.status || 'Active'" severity="success" rounded class="text-[10px]" />
           </div>
 
-          <h3 class="font-extrabold text-base text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
+          <h3 class="font-extrabold text-base text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">
             {{ clinic.name }}
           </h3>
           <p class="text-xs text-slate-400 mt-1 flex items-center gap-1">

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0 max-w-5xl mx-auto">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -41,7 +41,7 @@
               <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">Curated Theme Presets</h3>
               <p class="text-xs text-slate-400">Click any preset to instantly dress the entire application</p>
             </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
               8 Presets
             </span>
           </div>
@@ -55,7 +55,7 @@
               :class="[
                 'p-3 rounded-2xl border text-left cursor-pointer transition-all flex flex-col justify-between group',
                 currentPresetId === preset.id
-                  ? 'border-emerald-500 ring-2 ring-emerald-500/40 shadow-sm'
+                  ? 'border-indigo-500 ring-2 ring-indigo-500/40 shadow-sm'
                   : 'border-slate-200 dark:border-slate-800 hover:border-slate-400 bg-slate-50/50 dark:bg-[#0c1220]/50'
               ]"
             >
@@ -67,7 +67,7 @@
                 <span class="text-[10px] font-bold uppercase text-slate-400">{{ preset.mode }}</span>
               </div>
               <div>
-                <span class="text-xs font-bold text-slate-900 dark:text-white block group-hover:text-emerald-500 transition-colors">
+                <span class="text-xs font-bold text-slate-900 dark:text-white block group-hover:text-indigo-500 transition-colors">
                   {{ preset.name }}
                 </span>
               </div>

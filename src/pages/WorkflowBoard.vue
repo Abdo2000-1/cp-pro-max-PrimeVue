@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header & Pipeline Metrics -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -55,7 +55,7 @@
           :class="[
             'p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between',
             activeStageId === stage.id
-              ? 'border-emerald-500 bg-emerald-50/20 dark:bg-emerald-950/20 ring-1 ring-emerald-500 shadow-xs'
+              ? 'border-indigo-500 bg-indigo-50/20 dark:bg-indigo-950/20 ring-1 ring-indigo-500 shadow-xs'
               : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-slate-50/50 dark:bg-[#0c1220]/50'
           ]"
         >
@@ -65,7 +65,7 @@
               :class="[
                 'text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full',
                 activeStageId === stage.id
-                  ? 'bg-emerald-500 text-white'
+                  ? 'bg-indigo-500 text-white'
                   : 'bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
               ]"
             >
@@ -153,7 +153,7 @@
           <div>
             <div class="flex items-start justify-between gap-2 mb-2">
               <div>
-                <span class="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
+                <span class="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
                   {{ order.orderNumber }}
                 </span>
                 <h4 class="font-bold text-sm text-slate-900 dark:text-white mt-0.5">
@@ -184,7 +184,7 @@
               </div>
               <div class="flex justify-between text-slate-500 dark:text-slate-400">
                 <span>Due Date:</span>
-                <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold">{{ formatDate(order.dueDate) }}</span>
+                <span class="font-mono text-indigo-600 dark:text-indigo-400 font-semibold">{{ formatDate(order.dueDate) }}</span>
               </div>
             </div>
           </div>
@@ -272,11 +272,11 @@
               :key="order.id"
               draggable="true"
               @dragstart="onDragStart(order)"
-              class="p-4 rounded-2xl bg-slate-50 dark:bg-[#0c1220] border border-slate-200/60 dark:border-slate-800/60 shadow-2xs hover:shadow-md transition-all cursor-grab active:cursor-grabbing hover:border-emerald-500/50 flex flex-col justify-between"
+              class="p-4 rounded-2xl bg-slate-50 dark:bg-[#0c1220] border border-slate-200/60 dark:border-slate-800/60 shadow-2xs hover:shadow-md transition-all cursor-grab active:cursor-grabbing hover:border-indigo-500/50 flex flex-col justify-between"
             >
               <div>
                 <div class="flex items-center justify-between mb-1">
-                  <span class="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
+                  <span class="font-mono font-bold text-xs text-indigo-600 dark:text-indigo-400">
                     {{ order.orderNumber }}
                   </span>
                   <Tag
@@ -299,7 +299,7 @@
                 <button
                   type="button"
                   @click="advanceOrderStage(order)"
-                  class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
+                  class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>Advance</span>
                   <i class="pi pi-arrow-right text-[8px]" />
@@ -345,8 +345,8 @@ const stages = [
   { id: 'Design', title: '3. 3D CAD Modeling', shortTitle: '3D CAD', icon: 'pi pi-box', dotColor: 'bg-cyan-500', desc: 'Anatomical crowns, bridge nesting, implant custom abutments & emergence' },
   { id: 'Production', title: '4. CAM Milling & Printing', shortTitle: 'Milling', icon: 'pi pi-cog', dotColor: 'bg-blue-600', desc: '5-axis dry & wet milling in multi-layer zirconia, PMMA, and titanium discs' },
   { id: 'Sintering', title: '5. Sintering & Glaze', shortTitle: 'Sintering', icon: 'pi pi-sun', dotColor: 'bg-purple-500', desc: '1500°C furnace sintering, hand staining, and high-gloss glaze firing' },
-  { id: 'Quality Check', title: '6. Quality Verification', shortTitle: 'Quality', icon: 'pi pi-shield', dotColor: 'bg-emerald-400', desc: 'Die fit verification under 20x microscope, contact tension & occlusion' },
-  { id: 'Ready', title: '7. Ready for Dispatch', shortTitle: 'Dispatch', icon: 'pi pi-send', dotColor: 'bg-emerald-600', desc: 'Sterile packaging, invoice sealing, and courier dispatch to clinic' },
+  { id: 'Quality Check', title: '6. Quality Verification', shortTitle: 'Quality', icon: 'pi pi-shield', dotColor: 'bg-indigo-400', desc: 'Die fit verification under 20x microscope, contact tension & occlusion' },
+  { id: 'Ready', title: '7. Ready for Dispatch', shortTitle: 'Dispatch', icon: 'pi pi-send', dotColor: 'bg-indigo-600', desc: 'Sterile packaging, invoice sealing, and courier dispatch to clinic' },
 ];
 
 const expandedBays = ref<string[]>(['New', 'Review', 'Design', 'Production', 'Ready']);

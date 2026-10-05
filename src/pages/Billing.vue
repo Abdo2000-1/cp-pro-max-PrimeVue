@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -28,7 +28,7 @@
           <span class="text-xs text-slate-400 font-semibold">Total Receivables</span>
           <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{{ formatCurrency(totalReceivables) }}</div>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
           <i class="pi pi-dollar text-base" />
         </div>
       </div>
@@ -36,9 +36,9 @@
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center justify-between">
         <div>
           <span class="text-xs text-slate-400 font-semibold">Paid This Cycle</span>
-          <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">{{ formatCurrency(paidAmount) }}</div>
+          <div class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">{{ formatCurrency(paidAmount) }}</div>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
           <i class="pi pi-check-circle text-base" />
         </div>
       </div>
@@ -69,7 +69,7 @@
       <DataTable :value="filteredBilling" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
         <Column field="invoiceNumber" header="Invoice #">
           <template #body="{ data }">
-            <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">
+            <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">
               {{ data.invoiceNumber || `INV-${data.orderNumber}` }}
             </span>
           </template>
@@ -114,7 +114,7 @@
               <button
                 type="button"
                 @click="downloadInvoice(data.orderNumber)"
-                class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+                class="p-1.5 rounded-lg text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
                 title="Download PDF"
               >
                 <i class="pi pi-download text-xs" />

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -29,12 +29,21 @@
         </IconField>
       </div>
 
-      <div class="flex items-center gap-2 self-end sm:self-auto">
+      <div class="flex items-center gap-2 self-end sm:self-auto flex-wrap">
         <Select
           v-model="statusFilter"
           :options="['All', 'Active', 'In Progress', 'Review', 'Closed']"
           placeholder="Status"
           class="text-xs !rounded-2xl w-32"
+        />
+        <MultiSelect
+          v-if="viewMode === 'table'"
+          v-model="selectedColumns"
+          :options="allColumns"
+          optionLabel="header"
+          placeholder="Columns"
+          :maxSelectedLabels="2"
+          class="text-xs !rounded-2xl w-36"
         />
         <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
           <button
@@ -60,47 +69,47 @@
     <!-- Table View -->
     <div v-if="viewMode === 'table'" class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden">
       <DataTable :value="filteredCases" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
-        <Column field="caseNumber" header="Case #">
+        <Column v-if="isColVisible('caseNumber')" field="caseNumber" header="Case #" sortable>
           <template #body="{ data }">
-            <router-link :to="`/cases/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+            <router-link :to="`/cases/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               #{{ data.caseNumber }}
             </router-link>
           </template>
         </Column>
 
-        <Column field="title" header="Case Title">
+        <Column v-if="isColVisible('title')" field="title" header="Case Title" sortable>
           <template #body="{ data }">
             <div class="font-bold text-slate-900 dark:text-white">{{ data.title }}</div>
             <div class="text-[10px] text-slate-400">{{ data.ordersCount || 1 }} Order(s) linked</div>
           </template>
         </Column>
 
-        <Column field="patientName" header="Patient">
+        <Column v-if="isColVisible('patientName')" field="patientName" header="Patient" sortable>
           <template #body="{ data }">
             <div class="font-semibold text-slate-800 dark:text-slate-200">{{ data.patientName }}</div>
           </template>
         </Column>
 
-        <Column field="doctorName" header="Doctor & Clinic">
+        <Column v-if="isColVisible('doctorName')" field="doctorName" header="Doctor & Clinic" sortable>
           <template #body="{ data }">
             <div class="text-slate-800 dark:text-slate-200">{{ data.doctorName }}</div>
             <div class="text-[10px] text-slate-400">{{ data.clinicName }}</div>
           </template>
         </Column>
 
-        <Column field="status" header="Status">
+        <Column v-if="isColVisible('status')" field="status" header="Status" sortable>
           <template #body="{ data }">
             <Tag :value="data.status" severity="info" rounded class="text-[10px]" />
           </template>
         </Column>
 
-        <Column field="priority" header="Priority">
+        <Column v-if="isColVisible('priority')" field="priority" header="Priority" sortable>
           <template #body="{ data }">
             <Tag :value="data.priority" :severity="data.priority === 'Urgent' ? 'danger' : 'warn'" rounded class="text-[10px]" />
           </template>
         </Column>
 
-        <Column header="Action" bodyStyle="text-align: right">
+        <Column v-if="isColVisible('actions')" header="Action" bodyStyle="text-align: right">
           <template #body="{ data }">
             <router-link :to="`/cases/${data.id}`" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300">
               <span>View Case</span>
@@ -116,14 +125,14 @@
       <div
         v-for="c in filteredCases"
         :key="c.id"
-        class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-indigo-500/50 transition-all group"
+        class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between hover:border-emerald-500/50 transition-all group"
       >
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="font-mono text-xs font-bold text-indigo-600 dark:text-indigo-400">#{{ c.caseNumber }}</span>
+            <span class="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">#{{ c.caseNumber }}</span>
             <Tag :value="c.status" severity="info" rounded class="text-[10px]" />
           </div>
-          <h3 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-indigo-500 transition-colors">
+          <h3 class="font-extrabold text-sm text-slate-900 dark:text-white group-hover:text-emerald-500 transition-colors">
             {{ c.title }}
           </h3>
           <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Patient: <strong>{{ c.patientName }}</strong></p>
@@ -153,12 +162,29 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 
 const store = useDentalStore();
 const searchQuery = ref('');
 const statusFilter = ref('All');
 const viewMode = ref<'table' | 'grid'>('table');
+
+const allColumns = [
+  { field: 'caseNumber', header: 'Case #' },
+  { field: 'title', header: 'Case Title' },
+  { field: 'patientName', header: 'Patient' },
+  { field: 'doctorName', header: 'Doctor & Clinic' },
+  { field: 'status', header: 'Status' },
+  { field: 'priority', header: 'Priority' },
+  { field: 'actions', header: 'Action' },
+];
+
+const selectedColumns = ref([...allColumns]);
+
+const isColVisible = (field: string) => {
+  return selectedColumns.value.some(c => c.field === field);
+};
 
 const cases = computed(() => store.getCases());
 

@@ -1,18 +1,18 @@
-﻿<template>
+<template>
   <div class="space-y-4 w-full min-w-0 pb-12 select-none">
     
     <!-- 1. Header Bar: Title, Live Stats, Sound Feedback, and New Case -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white dark:bg-[#0b101d] p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
       <div>
         <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-slate-950 font-black shadow-md shadow-indigo-500/20">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-md shadow-emerald-500/20">
             <Layers class="w-4 h-4" />
           </div>
           <h1 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">
             Today's Flow
           </h1>
-          <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30">
-            PrimeVue 4.x + Aura Engine
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+            Vue 3 Composition API
           </span>
         </div>
         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -32,15 +32,15 @@
         <button
           type="button"
           @click="toggleAllRows"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer bg-transparent"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-emerald-500 text-slate-700 dark:text-slate-300 font-bold text-xs transition-all cursor-pointer bg-transparent"
         >
-          <component :is="expandedOrders.size > 0 ? ChevronUp : ChevronDown" class="w-3.5 h-3.5 text-indigo-500" />
+          <component :is="expandedOrders.size > 0 ? ChevronUp : ChevronDown" class="w-3.5 h-3.5 text-emerald-500" />
           <span>{{ expandedOrders.size > 0 ? 'Collapse All' : 'Expand All' }}</span>
         </button>
 
         <router-link
           to="/orders/create"
-          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-indigo-500/70 hover:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold text-xs transition-all cursor-pointer bg-transparent"
+          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-emerald-500/70 hover:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-xs transition-all cursor-pointer bg-transparent"
         >
           <Zap class="w-3.5 h-3.5" />
           <span>New Case</span>
@@ -52,7 +52,7 @@
     <div class="bg-white dark:bg-[#0b101d] p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-100 dark:border-slate-800">
         <div class="flex items-center gap-2">
-          <SlidersHorizontal class="w-4 h-4 text-indigo-500" />
+          <SlidersHorizontal class="w-4 h-4 text-emerald-500" />
           <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
             Service Modules Filter
           </span>
@@ -65,7 +65,7 @@
           <button
             type="button"
             @click="setAllServices(true)"
-            class="text-indigo-600 dark:text-indigo-400 hover:underline font-bold text-[11px] cursor-pointer"
+            class="text-emerald-600 dark:text-emerald-400 hover:underline font-bold text-[11px] cursor-pointer"
           >
             Select All
           </button>
@@ -95,11 +95,11 @@
               :class="[
                 'flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer',
                 servicesFilter[item.key]
-                  ? 'border-indigo-500/70 text-indigo-600 dark:text-indigo-400 bg-indigo-500/5 shadow-xs'
+                  ? 'border-emerald-500/70 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5 shadow-xs'
                   : 'border-slate-300 dark:border-slate-700 text-slate-400 opacity-60 hover:opacity-100 bg-transparent'
               ]"
             >
-              <span class="w-1.5 h-1.5 rounded-full" :class="servicesFilter[item.key] ? 'bg-indigo-500' : 'bg-slate-400'" />
+              <span class="w-1.5 h-1.5 rounded-full" :class="servicesFilter[item.key] ? 'bg-emerald-500' : 'bg-slate-400'" />
               <span>{{ item.label }}</span>
               <span class="text-[9px] font-mono opacity-80">({{ item.code }})</span>
             </button>
@@ -119,7 +119,7 @@
             v-model="searchTerm"
             type="text"
             placeholder="Search Order #, Doctor, Patient, Scan Center..."
-            class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           <button
             v-if="searchTerm"
@@ -136,9 +136,9 @@
         <button
           type="button"
           @click="showColumnPicker = !showColumnPicker"
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-indigo-500 text-slate-800 dark:text-slate-200 font-extrabold text-xs transition-all cursor-pointer bg-transparent"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-emerald-500 text-slate-800 dark:text-slate-200 font-extrabold text-xs transition-all cursor-pointer bg-transparent"
         >
-          <Columns class="w-3.5 h-3.5 text-indigo-500" />
+          <Columns class="w-3.5 h-3.5 text-emerald-500" />
           <span>Columns ({{ visibleColumns.size }}/22)</span>
           <ChevronDown class="w-3 h-3 text-slate-400" />
         </button>
@@ -159,21 +159,21 @@
               <button
                 type="button"
                 @click="setColumnPreset('all')"
-                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-300"
+                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-emerald-500 text-slate-700 dark:text-slate-300"
               >
                 All (22)
               </button>
               <button
                 type="button"
                 @click="setColumnPreset('clinical')"
-                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-300"
+                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-emerald-500 text-slate-700 dark:text-slate-300"
               >
                 Clinical (10)
               </button>
               <button
                 type="button"
                 @click="setColumnPreset('compact')"
-                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-700 dark:text-slate-300"
+                class="px-2 py-1 rounded-lg text-[10px] font-bold border border-slate-200 dark:border-slate-700 hover:border-emerald-500 text-slate-700 dark:text-slate-300"
               >
                 Minimal (6)
               </button>
@@ -191,7 +191,7 @@
                     type="checkbox"
                     :checked="visibleColumns.has(col.key)"
                     @change="toggleColumn(col.key)"
-                    class="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
                   />
                   <span class="font-bold text-slate-700 dark:text-slate-300">{{ col.label }}</span>
                 </div>
@@ -212,10 +212,32 @@
             <th
               v-for="col in activeVisibleColumns"
               :key="col.key"
+              @click="handleSort(col.key)"
               :style="{ width: getColWidth(col) }"
-              :class="['py-2.5 px-1.5 truncate', col.align === 'center' ? 'text-center' : col.align === 'right' ? 'text-right' : 'text-left']"
+              :class="[
+                'py-2.5 px-1.5 truncate cursor-pointer select-none transition-colors hover:bg-slate-200/80 dark:hover:bg-slate-800',
+                col.align === 'center' ? 'text-center' : col.align === 'right' ? 'text-right' : 'text-left',
+                sortCol === col.key ? 'text-emerald-600 dark:text-emerald-400 font-black' : ''
+              ]"
+              :title="`Click to sort by ${col.label} (Ascending / Descending)`"
             >
-              {{ col.label }}
+              <div :class="['inline-flex items-center gap-1 w-full', col.align === 'center' ? 'justify-center' : col.align === 'right' ? 'justify-end' : 'justify-start']">
+                <span class="truncate">{{ col.label }}</span>
+                <span class="shrink-0 inline-flex">
+                  <ArrowUp
+                    v-if="sortCol === col.key && sortDir === 'asc'"
+                    class="w-3 h-3 text-emerald-500"
+                  />
+                  <ArrowDown
+                    v-else-if="sortCol === col.key && sortDir === 'desc'"
+                    class="w-3 h-3 text-emerald-500"
+                  />
+                  <ArrowUpDown
+                    v-else
+                    class="w-2.5 h-2.5 text-slate-400 opacity-40 hover:opacity-100"
+                  />
+                </span>
+              </div>
             </th>
           </tr>
         </thead>
@@ -228,7 +250,7 @@
               :class="[
                 'group transition-colors cursor-pointer font-medium border-b border-slate-200 dark:border-slate-800',
                 expandedOrders.has(order.id)
-                  ? 'bg-indigo-50/40 dark:bg-indigo-950/20 border-l-4 border-l-indigo-500'
+                  ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-l-4 border-l-emerald-500'
                   : 'hover:bg-slate-50/80 dark:hover:bg-slate-900/50'
               ]"
             >
@@ -238,7 +260,7 @@
                   <span
                     :class="[
                       'p-0.5 rounded transition-transform duration-200 cursor-pointer',
-                      expandedOrders.has(order.id) ? 'text-indigo-500 rotate-90' : 'text-slate-400 group-hover:text-indigo-500'
+                      expandedOrders.has(order.id) ? 'text-emerald-500 rotate-90' : 'text-slate-400 group-hover:text-emerald-500'
                     ]"
                   >
                     <ChevronRight class="w-3.5 h-3.5 stroke-[3]" />
@@ -264,7 +286,7 @@
                 <div class="font-bold text-slate-800 dark:text-slate-200 truncate" :title="order.doctorName">
                   {{ order.doctorName }}
                 </div>
-                <div class="text-[9px] text-indigo-600 dark:text-indigo-400 font-bold truncate">
+                <div class="text-[9px] text-emerald-600 dark:text-emerald-400 font-bold truncate">
                   {{ order.doctorSub }}
                 </div>
               </td>
@@ -284,7 +306,7 @@
                 <span
                   :class="[
                     'px-1.5 py-0.5 rounded text-[8px] font-bold border bg-transparent',
-                    order.isLocked ? 'border-indigo-500/50 text-indigo-600 dark:text-indigo-400' : 'border-rose-500/50 text-rose-600 dark:text-rose-400'
+                    order.isLocked ? 'border-emerald-500/50 text-emerald-600 dark:text-emerald-400' : 'border-rose-500/50 text-rose-600 dark:text-rose-400'
                   ]"
                 >
                   {{ order.isLocked ? 'Lock' : 'Sales' }}
@@ -302,13 +324,13 @@
               <td v-if="visibleColumns.has('archive')" class="py-2.5 px-1 text-center text-[10px] font-mono text-slate-600 dark:text-slate-400">
                 <div class="flex items-center justify-center gap-0.5">
                   <span>{{ order.archiveDate }}</span>
-                  <ShoppingCart class="w-2.5 h-2.5 text-indigo-500 inline" />
+                  <ShoppingCart class="w-2.5 h-2.5 text-emerald-500 inline" />
                 </div>
               </td>
 
               <!-- 8. More Options -->
               <td v-if="visibleColumns.has('more')" class="py-2.5 px-0.5 text-center" @click.stop="$router.push(`/order-details?ID=${order.orderNum}`)">
-                <MoreHorizontal class="w-3.5 h-3.5 text-slate-400 hover:text-indigo-500 mx-auto cursor-pointer" />
+                <MoreHorizontal class="w-3.5 h-3.5 text-slate-400 hover:text-emerald-500 mx-auto cursor-pointer" />
               </td>
 
               <!-- 9. Order (Service Badges with Hover Tooltip) -->
@@ -349,7 +371,7 @@
               </td>
 
               <!-- 13. Amount -->
-              <td v-if="visibleColumns.has('amount')" class="py-2.5 px-1.5 text-right font-mono font-bold text-[11px] text-indigo-600 dark:text-indigo-400">
+              <td v-if="visibleColumns.has('amount')" class="py-2.5 px-1.5 text-right font-mono font-bold text-[11px] text-emerald-600 dark:text-emerald-400">
                 ${{ order.services.reduce((acc, s) => acc + s.amount, 0) }}.00
               </td>
 
@@ -387,7 +409,7 @@
                     'px-2 py-0.5 rounded-full text-[10px] font-extrabold border bg-transparent transition-all cursor-pointer',
                     order.services.some(s => s.hasActionAlert)
                       ? 'border-amber-500/70 text-amber-700 dark:text-amber-400 hover:bg-amber-500/10'
-                      : 'border-indigo-500/70 text-indigo-700 dark:text-indigo-400 hover:bg-indigo-500/10'
+                      : 'border-emerald-500/70 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/10'
                   ]"
                 >
                   {{ order.services[0]?.actionLabel || 'In Progress' }}
@@ -401,16 +423,16 @@
 
               <!-- 21. CS Task -->
               <td v-if="visibleColumns.has('csTask')" class="py-2.5 px-1 text-center" @click.stop>
-                <span class="text-slate-600 dark:text-slate-400 font-bold text-[10px] hover:text-indigo-500 cursor-pointer">
+                <span class="text-slate-600 dark:text-slate-400 font-bold text-[10px] hover:text-emerald-500 cursor-pointer">
                   {{ order.services[0]?.csTask?.assignee || 'Assign' }}
                 </span>
               </td>
             </tr>
 
             <!-- Accordion Expanded Row -->
-            <tr v-if="expandedOrders.has(order.id)" class="bg-slate-50/50 dark:bg-slate-950/40 border-b border-indigo-500/30">
+            <tr v-if="expandedOrders.has(order.id)" class="bg-slate-50/50 dark:bg-slate-950/40 border-b border-emerald-500/30">
               <td :colspan="visibleColumns.size" class="p-0">
-                <div class="p-3.5 space-y-3 bg-slate-50/30 dark:bg-slate-900/30 border-l-4 border-l-indigo-500">
+                <div class="p-3.5 space-y-3 bg-slate-50/30 dark:bg-slate-900/30 border-l-4 border-l-emerald-500">
                   <div class="flex items-center justify-between text-xs">
                     <span class="font-extrabold text-slate-800 dark:text-slate-200 uppercase tracking-wider text-[11px]">
                       Case #{{ order.orderNum }} Breakdown ({{ order.services.length }} Sub-Orders)
@@ -418,7 +440,7 @@
                     <button
                       type="button"
                       @click="$router.push(`/order-details?ID=${order.orderNum}`)"
-                      class="text-indigo-600 dark:text-indigo-400 font-bold text-xs hover:underline flex items-center gap-1"
+                      class="text-emerald-600 dark:text-emerald-400 font-bold text-xs hover:underline flex items-center gap-1"
                     >
                       <span>Open Full Prescription Workflow</span>
                       <ExternalLink class="w-3 h-3" />
@@ -441,14 +463,14 @@
                       </thead>
                       <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                         <tr v-for="sub in order.services" :key="sub.id" class="hover:bg-slate-50 dark:hover:bg-slate-900/50">
-                          <td class="py-2 px-3 font-mono font-bold text-indigo-600 dark:text-indigo-400">{{ sub.typeCode }}</td>
+                          <td class="py-2 px-3 font-mono font-bold text-emerald-600 dark:text-emerald-400">{{ sub.typeCode }}</td>
                           <td class="py-2 px-3 font-bold text-slate-800 dark:text-slate-200">{{ sub.title }}</td>
                           <td class="py-2 px-3 font-mono text-slate-600 dark:text-slate-400">{{ sub.format }}</td>
                           <td class="py-2 px-3 text-slate-600 dark:text-slate-400">Max: {{ sub.maxilla }} | Mand: {{ sub.mandible }}</td>
                           <td class="py-2 px-3 truncate max-w-xs text-slate-600 dark:text-slate-400">{{ sub.billTo }}</td>
-                          <td class="py-2 px-3 text-right font-mono font-bold text-indigo-600 dark:text-indigo-400">${{ sub.amount }}.00</td>
+                          <td class="py-2 px-3 text-right font-mono font-bold text-emerald-600 dark:text-emerald-400">${{ sub.amount }}.00</td>
                           <td class="py-2 px-3 text-center">
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border border-indigo-500/40 text-indigo-600 dark:text-indigo-400 bg-transparent">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-transparent">
                               {{ sub.actionLabel }}
                             </span>
                           </td>
@@ -470,7 +492,7 @@
         <button
           type="button"
           @click="setAllServices(true)"
-          class="px-4 py-1.5 rounded-xl border border-indigo-500 text-indigo-600 font-bold text-xs hover:bg-indigo-500/10 cursor-pointer"
+          class="px-4 py-1.5 rounded-xl border border-emerald-500 text-emerald-600 font-bold text-xs hover:bg-emerald-500/10 cursor-pointer"
         >
           Reset All Filters
         </button>
@@ -491,7 +513,7 @@
           >
             Previous
           </button>
-          <span class="px-2 font-mono font-bold text-indigo-600 dark:text-indigo-400">
+          <span class="px-2 font-mono font-bold text-emerald-600 dark:text-emerald-400">
             Page {{ currentPage }} of {{ Math.max(1, Math.ceil(filteredOrders.length / pageSize)) }}
           </span>
           <button
@@ -511,7 +533,7 @@
       <Transition name="tooltip-fade">
         <div
           v-if="hoveredService"
-          class="fixed z-50 pointer-events-none p-4 rounded-2xl bg-white/95 dark:bg-[#0c1322]/95 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700/80 shadow-2xl shadow-indigo-950/15 dark:shadow-black/70 backdrop-blur-md w-84 sm:w-[340px] space-y-2.5 text-xs"
+          class="fixed z-50 pointer-events-none p-4 rounded-2xl bg-white/95 dark:bg-[#0c1322]/95 text-slate-800 dark:text-slate-100 border border-slate-200/90 dark:border-slate-700/80 shadow-2xl shadow-emerald-950/15 dark:shadow-black/70 backdrop-blur-md w-84 sm:w-[340px] space-y-2.5 text-xs"
           :style="tooltipStyle"
         >
           <!-- Header: Service Badge + Full Title -->
@@ -530,7 +552,7 @@
               </div>
             </div>
 
-            <span class="font-mono font-black text-indigo-600 dark:text-indigo-400 text-xs shrink-0">
+            <span class="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs shrink-0">
               ${{ hoveredService.service.amount }}.00
             </span>
           </div>
@@ -547,11 +569,11 @@
             <div class="p-2 rounded-xl bg-slate-50/80 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-800/80 space-y-0.5">
               <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Anatomical Site</span>
               <div class="flex items-center gap-1 font-bold text-[10.5px]">
-                <span :class="hoveredService.service.maxilla !== 'None' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400'">
+                <span :class="hoveredService.service.maxilla !== 'None' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'">
                   Max: {{ hoveredService.service.maxilla }}
                 </span>
                 <span class="text-slate-300 dark:text-slate-600">•</span>
-                <span :class="hoveredService.service.mandible !== 'None' ? 'text-violet-600 dark:text-violet-400' : 'text-slate-400'">
+                <span :class="hoveredService.service.mandible !== 'None' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400'">
                   Mand: {{ hoveredService.service.mandible }}
                 </span>
               </div>
@@ -572,10 +594,10 @@
             <span
               :class="[
                 'px-2 py-0.5 rounded-full text-[10px] font-extrabold border bg-transparent flex items-center gap-1.5',
-                hoveredService.service.hasActionAlert ? 'border-amber-500/50 text-amber-700 dark:text-amber-400' : 'border-indigo-500/50 text-indigo-700 dark:text-indigo-400'
+                hoveredService.service.hasActionAlert ? 'border-amber-500/50 text-amber-700 dark:text-amber-400' : 'border-emerald-500/50 text-emerald-700 dark:text-emerald-400'
               ]"
             >
-              <span class="w-1.5 h-1.5 rounded-full" :class="hoveredService.service.hasActionAlert ? 'bg-amber-500' : 'bg-indigo-500'" />
+              <span class="w-1.5 h-1.5 rounded-full" :class="hoveredService.service.hasActionAlert ? 'bg-amber-500' : 'bg-emerald-500'" />
               <span>{{ hoveredService.service.actionLabel }}</span>
             </span>
           </div>
@@ -591,7 +613,8 @@ import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import {
   Layers, Search, SlidersHorizontal, ChevronDown, ChevronUp, ChevronRight,
-  Zap, Clock, X, Columns, ShoppingCart, MoreHorizontal, ExternalLink
+  Zap, Clock, X, Columns, ShoppingCart, MoreHorizontal, ExternalLink,
+  ArrowUp, ArrowDown, ArrowUpDown
 } from 'lucide-vue-next';
 import { MASTER_WORKFLOW_ORDERS, type MasterWorkflowOrder, type SubServiceItem } from '@/data/flowMockData';
 import { sound } from '@/utils/sound';
@@ -730,10 +753,23 @@ const setAllServices = (val: boolean) => {
   sound.playClick(val ? 750 : 400);
 };
 
-// Search & Pagination
+// Search & Pagination & Sorting
 const searchTerm = ref('');
 const currentPage = ref(1);
 const pageSize = ref(12);
+
+const sortCol = ref<string>('');
+const sortDir = ref<'asc' | 'desc'>('asc');
+
+const handleSort = (key: string) => {
+  if (sortCol.value === key) {
+    sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortCol.value = key;
+    sortDir.value = 'asc';
+  }
+  sound.playClick(500);
+};
 
 // Accordion Expand State
 const expandedOrders = ref<Set<string>>(new Set());
@@ -758,7 +794,7 @@ const toggleAllRows = () => {
 
 // Filtered Orders Logic
 const filteredOrders = computed(() => {
-  return MASTER_WORKFLOW_ORDERS.filter(order => {
+  let result = MASTER_WORKFLOW_ORDERS.filter(order => {
     // 1. Text Search
     if (searchTerm.value.trim()) {
       const q = searchTerm.value.toLowerCase();
@@ -789,6 +825,35 @@ const filteredOrders = computed(() => {
 
     return order.services.some(s => activeCodes.has(s.typeCode));
   });
+
+  if (sortCol.value) {
+    const col = sortCol.value;
+    const dirMult = sortDir.value === 'asc' ? 1 : -1;
+    result = [...result].sort((a: any, b: any) => {
+      let valA: any = a[col];
+      let valB: any = b[col];
+
+      if (col === 'tl') {
+        valA = a.orderNum;
+        valB = b.orderNum;
+      } else if (col === 'doctor') {
+        valA = a.doctorName;
+        valB = b.doctorName;
+      } else if (col === 'patient') {
+        valA = a.patientName;
+        valB = b.patientName;
+      }
+
+      if (valA === undefined || valA === null) return 1;
+      if (valB === undefined || valB === null) return -1;
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return (valA - valB) * dirMult;
+      }
+      return String(valA).localeCompare(String(valB), undefined, { numeric: true, sensitivity: 'base' }) * dirMult;
+    });
+  }
+
+  return result;
 });
 
 const paginatedOrders = computed(() => {
@@ -835,11 +900,11 @@ const getServiceTagStyle = (code: string) => {
     case 'SG':
       return 'border-purple-500/60 text-purple-600 dark:text-purple-400 hover:border-purple-400';
     case 'CONV':
-      return 'border-indigo-500/60 text-indigo-600 dark:text-indigo-400 hover:border-indigo-400';
+      return 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400 hover:border-emerald-400';
     case 'GFMR':
       return 'border-rose-500/60 text-rose-600 dark:text-rose-400 hover:border-rose-400';
     case 'FMP':
-      return 'border-violet-500/60 text-violet-600 dark:text-violet-400 hover:border-violet-400';
+      return 'border-teal-500/60 text-teal-600 dark:text-teal-400 hover:border-teal-400';
     case 'MOD':
       return 'border-amber-500/60 text-amber-600 dark:text-amber-400 hover:border-amber-400';
     default:
@@ -851,7 +916,7 @@ const getSourceBadgeStyle = (source: string) => {
   if (source.includes('Connect')) return 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30';
   if (source.includes('CaseXchange')) return 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/30';
   if (source.includes('Prexion') || source.includes('Planmeca')) return 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30';
-  return 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30';
+  return 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30';
 };
 
 // Click outside column picker

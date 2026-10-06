@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -20,15 +20,35 @@
       </button>
     </div>
 
+    <!-- Toolbar -->
+    <div class="p-4 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="w-full sm:w-80">
+        <IconField class="w-full">
+          <InputIcon class="pi pi-search text-xs text-slate-400" />
+          <InputText v-model="searchQuery" placeholder="Search clinicians by name, specialty, clinic..." class="w-full text-xs !rounded-2xl" />
+        </IconField>
+      </div>
+      <div class="flex items-center gap-2 self-end sm:self-auto">
+        <MultiSelect
+          v-model="selectedColumns"
+          :options="allColumns"
+          optionLabel="header"
+          placeholder="Columns"
+          :maxSelectedLabels="2"
+          class="text-xs !rounded-2xl w-36"
+        />
+      </div>
+    </div>
+
     <!-- DataTable -->
     <div class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden">
-      <DataTable :value="doctors" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
-        <Column field="name" header="Doctor">
+      <DataTable :value="filteredDoctors" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
+        <Column v-if="isColVisible('name')" field="name" header="Doctor" sortable>
           <template #body="{ data }">
             <div class="flex items-center gap-2.5">
               <Avatar :label="data.name.replace('Dr. ', '')[0]" shape="circle" class="bg-cyan-500/10 text-cyan-600 font-bold" />
               <div>
-                <router-link :to="`/doctors/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-indigo-500 transition-colors">
+                <router-link :to="`/doctors/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-emerald-500 transition-colors">
                   {{ data.name }}
                 </router-link>
                 <div class="text-[10px] text-slate-400">{{ data.specialty }}</div>
@@ -37,17 +57,17 @@
           </template>
         </Column>
 
-        <Column field="clinicName" header="Affiliated Clinic" />
-        <Column field="phone" header="Contact Phone" />
-        <Column field="email" header="Email Address" />
+        <Column v-if="isColVisible('clinicName')" field="clinicName" header="Affiliated Clinic" sortable />
+        <Column v-if="isColVisible('phone')" field="phone" header="Contact Phone" sortable />
+        <Column v-if="isColVisible('email')" field="email" header="Email Address" sortable />
 
-        <Column field="status" header="Status">
+        <Column v-if="isColVisible('status')" field="status" header="Status" sortable>
           <template #body="{ data }">
             <Tag :value="data.status" severity="success" rounded class="text-[10px]" />
           </template>
         </Column>
 
-        <Column header="Actions" bodyStyle="text-align: right">
+        <Column v-if="isColVisible('actions')" header="Actions" bodyStyle="text-align: right">
           <template #body="{ data }">
             <router-link :to="`/doctors/${data.id}`" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300">
               <span>Profile</span>
@@ -87,17 +107,46 @@ import { ref, computed } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
-import Avatar from 'primevue/avatar';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 import { sound } from '@/utils/sound';
 
 const store = useDentalStore();
 const showAddModal = ref(false);
+const searchQuery = ref('');
 const newDoc = ref({ name: '', specialty: 'Prosthodontics', clinicName: 'Apex Dental Studio' });
 
+const allColumns = [
+  { field: 'name', header: 'Doctor' },
+  { field: 'clinicName', header: 'Affiliated Clinic' },
+  { field: 'phone', header: 'Contact Phone' },
+  { field: 'email', header: 'Email Address' },
+  { field: 'status', header: 'Status' },
+  { field: 'actions', header: 'Actions' },
+];
+
+const selectedColumns = ref([...allColumns]);
+
+const isColVisible = (field: string) => {
+  return selectedColumns.value.some(c => c.field === field);
+};
+
 const doctors = computed(() => store.getDoctors());
+
+const filteredDoctors = computed(() => {
+  const q = searchQuery.value.toLowerCase();
+  return doctors.value.filter(d =>
+    !q ||
+    d.name.toLowerCase().includes(q) ||
+    d.specialty.toLowerCase().includes(q) ||
+    d.clinicName.toLowerCase().includes(q) ||
+    (d.email || '').toLowerCase().includes(q)
+  );
+});
 
 const saveDoc = () => {
   if (newDoc.value.name.trim()) {

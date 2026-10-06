@@ -1,12 +1,12 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Top Command Toolbar (Faithfully modeled from Image 2) -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
       <div>
         <div class="flex items-center gap-2">
           <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Overview</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-          <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400">Live</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Live</span>
         </div>
         <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-0.5">
           Portfolio command
@@ -46,7 +46,7 @@
         </div>
         <div class="mt-4 flex items-baseline justify-between">
           <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">$1.42M</span>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             +12.4%
           </span>
         </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="mt-4 flex items-baseline justify-between">
           <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">$284.6K</span>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             +8.2%
           </span>
         </div>
@@ -88,13 +88,13 @@
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between transition-all hover:shadow-md">
         <div class="flex items-start justify-between">
           <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Risk score</span>
-          <div class="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
             <i class="pi pi-shield text-sm" />
           </div>
         </div>
         <div class="mt-4 flex items-baseline justify-between">
           <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">24%</span>
-          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
             Low
           </span>
         </div>
@@ -142,7 +142,7 @@
               <button
                 type="button"
                 @click="$router.push('/orders')"
-                class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+                class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
               >
                 <span>View All</span>
                 <i class="pi pi-arrow-right text-[10px]" />
@@ -158,36 +158,36 @@
             :rowHover="true"
             @row-click="e => $router.push(`/orders/${e.data.id}`)"
           >
-            <Column field="orderNumber" header="Id">
+            <Column field="orderNumber" header="Id" sortable>
               <template #body="{ data }">
-                <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">
+                <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">
                   #{{ data.orderNumber }}
                 </span>
               </template>
             </Column>
 
-            <Column field="patientName" header="Name">
+            <Column field="patientName" header="Name" sortable>
               <template #body="{ data }">
                 <div class="flex items-center gap-2">
-                  <Avatar :label="data.patientName[0]" size="small" shape="circle" class="bg-indigo-500/10 text-indigo-600 font-bold" />
+                  <Avatar :label="data.patientName[0]" size="small" shape="circle" class="bg-emerald-500/10 text-emerald-600 font-bold" />
                   <span class="font-bold text-slate-900 dark:text-white">{{ data.patientName }}</span>
                 </div>
               </template>
             </Column>
 
-            <Column field="restoration" header="Restoration">
+            <Column field="restoration" header="Restoration" sortable>
               <template #body="{ data }">
                 <span class="font-semibold text-slate-700 dark:text-slate-300">{{ data.restoration }}</span>
               </template>
             </Column>
 
-            <Column field="dueDate" header="Date">
+            <Column field="dueDate" header="Date" sortable>
               <template #body="{ data }">
                 <span class="font-mono text-slate-400 text-[11px]">{{ formatDate(data.dueDate) }}</span>
               </template>
             </Column>
 
-            <Column field="status" header="Process">
+            <Column field="status" header="Process" sortable>
               <template #body="{ data }">
                 <Tag
                   :value="data.status"
@@ -198,7 +198,7 @@
               </template>
             </Column>
 
-            <Column field="amount" header="Amount">
+            <Column field="amount" header="Amount" sortable>
               <template #body="{ data }">
                 <span class="font-mono font-bold text-slate-900 dark:text-white">{{ formatCurrency(data.amount) }}</span>
               </template>
@@ -217,12 +217,12 @@
 
           <div class="flex items-baseline justify-between mb-4">
             <span class="text-3xl font-extrabold text-slate-900 dark:text-white">$1.42M</span>
-            <span class="text-xs font-bold text-indigo-500">+12.4%</span>
+            <span class="text-xs font-bold text-emerald-500">+12.4%</span>
           </div>
 
           <!-- Color segments bar -->
           <div class="w-full h-3 rounded-full overflow-hidden flex gap-0.5 bg-slate-100 dark:bg-slate-800 mb-6">
-            <div class="h-full bg-indigo-500" style="width: 48%" title="Zirconia 48%" />
+            <div class="h-full bg-emerald-500" style="width: 48%" title="Zirconia 48%" />
             <div class="h-full bg-cyan-400" style="width: 26%" title="E-Max 26%" />
             <div class="h-full bg-amber-400" style="width: 14%" title="Implant Abutments 14%" />
             <div class="h-full bg-purple-500" style="width: 12%" title="Surgical Guides 12%" />
@@ -232,7 +232,7 @@
           <div class="space-y-3 text-xs">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 <span class="font-medium text-slate-700 dark:text-slate-300">Zirconia Restorations</span>
               </div>
               <span class="font-bold font-mono text-slate-900 dark:text-white">48% ($681K)</span>

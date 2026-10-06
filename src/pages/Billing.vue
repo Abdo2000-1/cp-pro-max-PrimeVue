@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -28,7 +28,7 @@
           <span class="text-xs text-slate-400 font-semibold">Total Receivables</span>
           <div class="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">{{ formatCurrency(totalReceivables) }}</div>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
           <i class="pi pi-dollar text-base" />
         </div>
       </div>
@@ -36,9 +36,9 @@
       <div class="p-5 rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center justify-between">
         <div>
           <span class="text-xs text-slate-400 font-semibold">Paid This Cycle</span>
-          <div class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">{{ formatCurrency(paidAmount) }}</div>
+          <div class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1">{{ formatCurrency(paidAmount) }}</div>
         </div>
-        <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
           <i class="pi pi-check-circle text-base" />
         </div>
       </div>
@@ -58,24 +58,40 @@
     <div class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden p-5 space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Invoices Ledger</h3>
-        <div class="w-full sm:w-72">
-          <IconField class="w-full">
-            <InputIcon class="pi pi-search text-xs text-slate-400" />
-            <InputText v-model="searchQuery" placeholder="Search invoices..." class="w-full text-xs !rounded-2xl" />
-          </IconField>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="w-full sm:w-64">
+            <IconField class="w-full">
+              <InputIcon class="pi pi-search text-xs text-slate-400" />
+              <InputText v-model="searchQuery" placeholder="Search invoices..." class="w-full text-xs !rounded-2xl" />
+            </IconField>
+          </div>
+          <Select
+            v-model="statusFilter"
+            :options="['all', 'Paid', 'Pending', 'Invoiced', 'Overdue']"
+            placeholder="Status"
+            class="text-xs !rounded-2xl w-32"
+          />
+          <MultiSelect
+            v-model="selectedColumns"
+            :options="allColumns"
+            optionLabel="header"
+            placeholder="Columns"
+            :maxSelectedLabels="2"
+            class="text-xs !rounded-2xl w-36"
+          />
         </div>
       </div>
 
       <DataTable :value="filteredBilling" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
-        <Column field="invoiceNumber" header="Invoice #">
+        <Column v-if="isColVisible('invoiceNumber')" field="invoiceNumber" header="Invoice #" sortable>
           <template #body="{ data }">
-            <span class="font-mono font-bold text-indigo-600 dark:text-indigo-400">
+            <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">
               {{ data.invoiceNumber || `INV-${data.orderNumber}` }}
             </span>
           </template>
         </Column>
 
-        <Column field="orderNumber" header="Order Ref">
+        <Column v-if="isColVisible('orderNumber')" field="orderNumber" header="Order Ref" sortable>
           <template #body="{ data }">
             <router-link :to="`/orders/${data.orderId || data.id}`" class="font-mono hover:underline">
               #{{ data.orderNumber }}
@@ -83,38 +99,38 @@
           </template>
         </Column>
 
-        <Column field="clinicName" header="Clinic & Doctor">
+        <Column v-if="isColVisible('clinicName')" field="clinicName" header="Clinic & Doctor" sortable>
           <template #body="{ data }">
             <div class="font-bold text-slate-900 dark:text-white">{{ data.clinicName }}</div>
             <div class="text-[10px] text-slate-400">{{ data.doctorName }}</div>
           </template>
         </Column>
 
-        <Column field="amount" header="Amount" sortable>
+        <Column v-if="isColVisible('amount')" field="amount" header="Amount" sortable>
           <template #body="{ data }">
             <span class="font-mono font-extrabold text-slate-900 dark:text-white">{{ formatCurrency(data.amount) }}</span>
           </template>
         </Column>
 
-        <Column field="status" header="Status">
+        <Column v-if="isColVisible('status')" field="status" header="Status" sortable>
           <template #body="{ data }">
             <Tag :value="data.status" :severity="data.status === 'Paid' ? 'success' : 'warn'" rounded class="text-[10px]" />
           </template>
         </Column>
 
-        <Column field="dueDate" header="Due Date">
+        <Column v-if="isColVisible('dueDate')" field="dueDate" header="Due Date" sortable>
           <template #body="{ data }">
             <span class="font-mono text-slate-400">{{ formatDate(data.dueDate) }}</span>
           </template>
         </Column>
 
-        <Column header="Actions" bodyStyle="text-align: right">
+        <Column v-if="isColVisible('actions')" header="Actions" bodyStyle="text-align: right">
           <template #body="{ data }">
             <div class="flex items-center justify-end gap-1">
               <button
                 type="button"
                 @click="downloadInvoice(data.orderNumber)"
-                class="p-1.5 rounded-lg text-slate-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
+                class="p-1.5 rounded-lg text-slate-400 hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
                 title="Download PDF"
               >
                 <i class="pi pi-download text-xs" />
@@ -135,12 +151,31 @@ import Tag from 'primevue/tag';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 import { formatCurrency, formatDate } from '@/utils/format';
 import { sound } from '@/utils/sound';
 
 const store = useDentalStore();
 const searchQuery = ref('');
+const statusFilter = ref('all');
+
+const allColumns = [
+  { field: 'invoiceNumber', header: 'Invoice #' },
+  { field: 'orderNumber', header: 'Order Ref' },
+  { field: 'clinicName', header: 'Clinic & Doctor' },
+  { field: 'amount', header: 'Amount' },
+  { field: 'status', header: 'Status' },
+  { field: 'dueDate', header: 'Due Date' },
+  { field: 'actions', header: 'Actions' },
+];
+
+const selectedColumns = ref([...allColumns]);
+
+const isColVisible = (field: string) => {
+  return selectedColumns.value.some(c => c.field === field);
+};
 
 const billing = computed(() => store.getBilling());
 
@@ -149,8 +184,12 @@ const paidAmount = computed(() => billing.value.filter(b => b.status === 'Paid')
 const pendingAmount = computed(() => totalReceivables.value - paidAmount.value);
 
 const filteredBilling = computed(() => {
-  const q = searchQuery.value.toLowerCase();
-  return billing.value.filter(b => !q || (b.invoiceNumber || '').toLowerCase().includes(q) || b.orderNumber.toLowerCase().includes(q) || (b.clinicName || '').toLowerCase().includes(q));
+  return billing.value.filter(b => {
+    const q = searchQuery.value.toLowerCase();
+    const matchSearch = !q || (b.invoiceNumber || '').toLowerCase().includes(q) || b.orderNumber.toLowerCase().includes(q) || (b.clinicName || '').toLowerCase().includes(q);
+    const matchStatus = statusFilter.value === 'all' || b.status === statusFilter.value;
+    return matchSearch && matchStatus;
+  });
 });
 
 const generateStatement = () => {

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-4 w-full min-w-0">
     
     <!-- 1. Header & Controls -->
@@ -140,7 +140,7 @@
         </div>
         <div class="p-3 rounded-xl bg-white dark:bg-[#0b101d] border border-slate-200 dark:border-slate-800">
           <span class="text-[10px] uppercase font-bold text-slate-400 block">Average Completion</span>
-          <span class="text-lg font-black text-indigo-600 dark:text-indigo-400 font-mono">{{ avgCompletion }}%</span>
+          <span class="text-lg font-black text-emerald-600 dark:text-emerald-400 font-mono">{{ avgCompletion }}%</span>
         </div>
       </div>
 
@@ -150,15 +150,15 @@
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="bg-slate-50 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase select-none">
-                <th class="py-3 px-3 w-16">Staff ID</th>
-                <th class="py-3 px-3 w-40">Specialist Name</th>
-                <th class="py-3 px-3 w-44">Department</th>
-                <th class="py-3 px-3 w-44">Email & Phone</th>
-                <th class="py-3 px-3 w-24">Quota</th>
-                <th class="py-3 px-3 w-24">Achieved</th>
+                <SortTh field="id" label="Staff ID" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-16" />
+                <SortTh field="name" label="Specialist Name" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-40" />
+                <SortTh field="department" label="Department" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-44" />
+                <SortTh field="email" label="Email & Phone" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-44" />
+                <SortTh field="quota" label="Quota" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-24" />
+                <SortTh field="achieved" label="Achieved" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" class="py-3 px-3 w-24" />
                 <th class="py-3 px-3 w-36">Quarter Progress</th>
                 <th class="py-3 px-3 w-40">Monthly Slices (M1 / M2 / M3)</th>
-                <th class="py-3 px-3 text-right w-24">Bonus Tier</th>
+                <SortTh field="tier" label="Bonus Tier" :sortField="sortField" :sortDirection="sortDirection" @sort="handleSort" align="right" class="py-3 px-3 w-24" />
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
@@ -185,7 +185,7 @@
                   <div class="flex items-center gap-2">
                     <div class="w-20 bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
                       <div
-                        :class="['h-full rounded-full transition-all duration-500', Math.round((staff.achieved / staff.quota) * 100) >= 100 ? 'bg-indigo-500' : 'bg-cyan-500']"
+                        :class="['h-full rounded-full transition-all duration-500', Math.round((staff.achieved / staff.quota) * 100) >= 100 ? 'bg-emerald-500' : 'bg-cyan-500']"
                         :style="{ width: `${Math.min(Math.round((staff.achieved / staff.quota) * 100), 100)}%` }"
                       />
                     </div>
@@ -237,6 +237,19 @@ import UIStateSwitcher, { type UIStateType } from '@/components/ui/UIStateSwitch
 import LoadingState from '@/components/ui/LoadingState.vue';
 import EmptyState from '@/components/ui/EmptyState.vue';
 import ErrorState from '@/components/ui/ErrorState.vue';
+import SortTh from '@/components/ui/SortTh.vue';
+
+const sortField = ref<string>('');
+const sortDirection = ref<'asc' | 'desc'>('asc');
+
+function handleSort(field: string) {
+  if (sortField.value === field) {
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortField.value = field;
+    sortDirection.value = 'asc';
+  }
+}
 
 interface StaffTargetRow {
   id: number;
@@ -269,7 +282,7 @@ const selectedQuarter = ref<string>('Q3 (Jul - Sep)');
 const search = ref('');
 
 const filteredStaff = computed(() => {
-  return SAMPLE_STAFF.filter((s) => {
+  let result = SAMPLE_STAFF.filter((s) => {
     if (selectedDept.value !== 'ALL' && s.department !== selectedDept.value) {
       return false;
     }
@@ -283,6 +296,23 @@ const filteredStaff = computed(() => {
     }
     return true;
   });
+
+  if (sortField.value) {
+    const field = sortField.value;
+    const dirMult = sortDirection.value === 'asc' ? 1 : -1;
+    result = [...result].sort((a: any, b: any) => {
+      const valA = a[field];
+      const valB = b[field];
+      if (valA === undefined || valA === null) return 1;
+      if (valB === undefined || valB === null) return -1;
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return (valA - valB) * dirMult;
+      }
+      return String(valA).localeCompare(String(valB), undefined, { numeric: true, sensitivity: 'base' }) * dirMult;
+    });
+  }
+
+  return result;
 });
 
 const totalQuota = computed(() => filteredStaff.value.reduce((acc, s) => acc + s.quota, 0));

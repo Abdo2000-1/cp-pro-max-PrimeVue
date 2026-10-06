@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-4 w-full min-w-0">
     
     <!-- 1. Header with Clean, Non-Overlapping Title and Badge -->
@@ -137,14 +137,14 @@
 
           <span class="text-slate-300 dark:text-slate-700">|</span>
 
-          <span class="px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold text-[11px] border border-indigo-500/20 flex items-center gap-1">
+          <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold text-[11px] border border-emerald-500/20 flex items-center gap-1">
             <ShieldCheck class="w-3 h-3" />
             <span>DAX Measure Engine Live</span>
           </span>
         </div>
 
         <div class="text-[11px] font-mono text-slate-400">
-          Target Fulfillment: <strong class="text-indigo-600 dark:text-indigo-400 font-black">{{ currentQuarterStats.fulfillment }}</strong>
+          Target Fulfillment: <strong class="text-emerald-600 dark:text-emerald-400 font-black">{{ currentQuarterStats.fulfillment }}</strong>
         </div>
       </div>
 
@@ -154,7 +154,7 @@
           <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Cases Produced</span>
           <div class="flex items-baseline gap-2 mt-1">
             <span class="text-2xl font-black text-slate-900 dark:text-white font-mono">{{ currentQuarterStats.cases }}</span>
-            <span class="text-xs font-bold text-indigo-500">{{ currentQuarterStats.quotaMet }}</span>
+            <span class="text-xs font-bold text-emerald-500">{{ currentQuarterStats.quotaMet }}</span>
           </div>
           <span class="text-[10px] text-slate-400 block mt-0.5">Target: {{ currentQuarterStats.target }}</span>
         </div>
@@ -163,7 +163,7 @@
           <span class="text-[10px] uppercase font-bold text-slate-400 block">Quarterly Gross Revenue</span>
           <div class="flex items-baseline gap-2 mt-1">
             <span class="text-2xl font-black text-[#0284c7] dark:text-sky-400 font-mono">{{ currentQuarterStats.revenue }}</span>
-            <span class="text-xs font-bold text-indigo-500">{{ currentQuarterStats.revYoy }}</span>
+            <span class="text-xs font-bold text-emerald-500">{{ currentQuarterStats.revYoy }}</span>
           </div>
           <span class="text-[10px] text-slate-400 block mt-0.5">Average case: $149.80</span>
         </div>
@@ -172,7 +172,7 @@
           <span class="text-[10px] uppercase font-bold text-slate-400 block">Surgical Guides Printed</span>
           <div class="flex items-baseline gap-2 mt-1">
             <span class="text-2xl font-black text-[#ea580c] dark:text-orange-400 font-mono">{{ currentQuarterStats.guides }}</span>
-            <span class="text-xs font-bold text-indigo-500">{{ currentQuarterStats.guidesQc }}</span>
+            <span class="text-xs font-bold text-emerald-500">{{ currentQuarterStats.guidesQc }}</span>
           </div>
           <span class="text-[10px] text-slate-400 block mt-0.5">Straumann & Custom Sleeves</span>
         </div>
@@ -181,7 +181,7 @@
           <span class="text-[10px] uppercase font-bold text-slate-400 block">Average Lab Turnaround</span>
           <div class="flex items-baseline gap-2 mt-1">
             <span class="text-2xl font-black text-amber-500 font-mono">{{ currentQuarterStats.turnaround }}</span>
-            <span class="text-xs font-bold text-indigo-500">{{ currentQuarterStats.slaDiff }}</span>
+            <span class="text-xs font-bold text-emerald-500">{{ currentQuarterStats.slaDiff }}</span>
           </div>
           <span class="text-[10px] text-slate-400 block mt-0.5">Express SLAs met: 98.8%</span>
         </div>
@@ -275,7 +275,7 @@
         <div class="p-4 border-b border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
             <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Building2 class="w-4 h-4 text-indigo-500" />
+              <Building2 class="w-4 h-4 text-emerald-500" />
               <span>Top Diagnostic & Surgical Centers Matrix</span>
             </h3>
             <span class="text-[11px] text-slate-400">Aggregated client volumes from 3DDX reports.json</span>
@@ -295,13 +295,13 @@
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="bg-slate-50/80 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                <th class="p-3 pl-4">Account / Clinic Name</th>
-                <th class="p-3 text-right">Jan Orders</th>
-                <th class="p-3 text-right">Feb Orders</th>
-                <th class="p-3 text-right">Mar Orders</th>
-                <th class="p-3 text-right">Total Q1 Cases</th>
-                <th class="p-3 text-right">Gross Billing</th>
-                <th class="p-3 text-center">Quota Met</th>
+                <SortTh field="client" label="Account / Clinic Name" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" class="p-3 pl-4" />
+                <SortTh field="janOrders" label="Jan Orders" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="right" class="p-3" />
+                <SortTh field="febOrders" label="Feb Orders" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="right" class="p-3" />
+                <SortTh field="marOrders" label="Mar Orders" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="right" class="p-3" />
+                <SortTh field="totalOrders" label="Total Q1 Cases" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="right" class="p-3" />
+                <SortTh field="totalRev" label="Gross Billing" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="right" class="p-3" />
+                <SortTh field="quotaMet" label="Quota Met" :sortField="clientSortField" :sortDirection="clientSortDirection" @sort="handleClientSort" align="center" class="p-3" />
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800/60 font-mono">
@@ -319,7 +319,7 @@
                 <td class="p-3 text-right font-black text-slate-900 dark:text-white">{{ c.totalOrders }}</td>
                 <td class="p-3 text-right font-black text-[#0284c7] dark:text-sky-400">${{ c.totalRev.toLocaleString() }}</td>
                 <td class="p-3 text-center">
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/25">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25">
                     {{ c.quotaMet }}
                   </span>
                 </td>
@@ -357,7 +357,7 @@
             <tr v-for="q in QUARTER_DATA" :key="q.quarter">
               <td class="p-3 font-sans font-bold text-slate-900 dark:text-white">{{ q.quarter }}</td>
               <td class="p-3 text-right text-slate-500">{{ q.target.toLocaleString() }}</td>
-              <td class="p-3 text-right font-black text-indigo-600 dark:text-indigo-400">{{ q.achieved.toLocaleString() }}</td>
+              <td class="p-3 text-right font-black text-emerald-600 dark:text-emerald-400">{{ q.achieved.toLocaleString() }}</td>
               <td class="p-3 text-right text-[#0284c7]">{{ q.guides.toLocaleString() }}</td>
               <td class="p-3 text-right text-[#ea580c]">{{ q.plans.toLocaleString() }}</td>
               <td class="p-3 text-right text-purple-500">{{ q.models.toLocaleString() }}</td>
@@ -417,12 +417,25 @@ import {
   SlidersHorizontal, RefreshCw, Filter, ShieldCheck, PieChart as PieChartIcon,
   Building2, Search
 } from 'lucide-vue-next';
+import SortTh from '@/components/ui/SortTh.vue';
 import { sound } from '@/utils/sound';
 
 const activeView = ref<'dashboard' | 'matrix' | 'powerbi' | 'config'>('dashboard');
 const isRefreshing = ref(false);
 const searchQuery = ref('');
 const selectedQuarter = ref<'all' | 'Q1' | 'Q2' | 'Q3' | 'Q4'>('all');
+
+const clientSortField = ref<string>('');
+const clientSortDirection = ref<'asc' | 'desc'>('asc');
+
+function handleClientSort(field: string) {
+  if (clientSortField.value === field) {
+    clientSortDirection.value = clientSortDirection.value === 'asc' ? 'desc' : 'asc';
+  } else {
+    clientSortField.value = field;
+    clientSortDirection.value = 'asc';
+  }
+}
 
 const powerBiEmbedUrl = ref(
   'https://app.powerbi.com/view?r=eyJrIjoiNTRjMzI0MmQtNTA3YS00N2MwLWI0ZTctMGEyOGUwOGI0OTRhIiwidCI6IjI1ZDIwZjU1LWIxMGMtNDk5MS1hMTJlLWRlOWZkZDA2YTY0MCIsImMiOjZ9'
@@ -549,9 +562,38 @@ const currentQuarterStats = computed(() => {
 });
 
 const filteredClients = computed(() => {
-  return TOP_CLIENT_REPORTS.filter((c) =>
+  let result = TOP_CLIENT_REPORTS.filter((c) =>
     c.client.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
+
+  if (clientSortField.value) {
+    const field = clientSortField.value;
+    const dirMult = clientSortDirection.value === 'asc' ? 1 : -1;
+    result = [...result].sort((a: any, b: any) => {
+      let valA: any = a[field];
+      let valB: any = b[field];
+
+      if (field === 'janOrders') {
+        valA = a.jan.orders;
+        valB = b.jan.orders;
+      } else if (field === 'febOrders') {
+        valA = a.feb.orders;
+        valB = b.feb.orders;
+      } else if (field === 'marOrders') {
+        valA = a.mar.orders;
+        valB = b.mar.orders;
+      }
+
+      if (valA === undefined || valA === null) return 1;
+      if (valB === undefined || valB === null) return -1;
+      if (typeof valA === 'number' && typeof valB === 'number') {
+        return (valA - valB) * dirMult;
+      }
+      return String(valA).localeCompare(String(valB), undefined, { numeric: true, sensitivity: 'base' }) * dirMult;
+    });
+  }
+
+  return result;
 });
 
 const handleRefresh = () => {

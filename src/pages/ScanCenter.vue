@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -31,8 +31,8 @@
         <div>
           <span class="text-xs text-slate-400 font-medium">{{ hw.brand }}</span>
           <h4 class="font-extrabold text-sm text-slate-900 dark:text-white mt-0.5">{{ hw.name }}</h4>
-          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 mt-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+          <span class="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 mt-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>{{ hw.status }} • {{ hw.fps }}</span>
           </span>
         </div>
@@ -46,45 +46,56 @@
     <div class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden p-5 space-y-4">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <h3 class="text-base font-extrabold text-slate-900 dark:text-white">Recent Intake Digital Impressions</h3>
-        <div class="w-full sm:w-72">
-          <IconField class="w-full">
-            <InputIcon class="pi pi-search text-xs text-slate-400" />
-            <InputText v-model="searchQuery" placeholder="Filter intake scans..." class="w-full text-xs !rounded-2xl" />
-          </IconField>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <div class="w-full sm:w-72">
+            <IconField class="w-full">
+              <InputIcon class="pi pi-search text-xs text-slate-400" />
+              <InputText v-model="searchQuery" placeholder="Filter intake scans..." class="w-full text-xs !rounded-2xl" />
+            </IconField>
+          </div>
+
+          <MultiSelect
+            v-model="selectedColumns"
+            :options="allColumns"
+            optionLabel="header"
+            placeholder="Columns"
+            :maxSelectedLabels="2"
+            class="text-xs !rounded-2xl w-36"
+          />
         </div>
       </div>
 
       <DataTable :value="filteredOrders" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
-        <Column field="orderNumber" header="Order #">
+        <Column v-if="isColVisible('orderNumber')" field="orderNumber" header="Order #" sortable>
           <template #body="{ data }">
-            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+            <router-link :to="`/orders/${data.id}`" class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
               #{{ data.orderNumber }}
             </router-link>
           </template>
         </Column>
 
-        <Column field="patientName" header="Patient">
+        <Column v-if="isColVisible('patientName')" field="patientName" header="Patient" sortable>
           <template #body="{ data }">
             <span class="font-bold text-slate-900 dark:text-white">{{ data.patientName }}</span>
           </template>
         </Column>
 
-        <Column field="doctorName" header="Doctor / Clinic">
+        <Column v-if="isColVisible('doctorName')" field="doctorName" header="Doctor / Clinic" sortable>
           <template #body="{ data }">
             <div class="font-medium text-slate-800 dark:text-slate-200">{{ data.doctorName }}</div>
             <div class="text-[10px] text-slate-400">{{ data.clinicName }}</div>
           </template>
         </Column>
 
-        <Column field="restoration" header="Restoration Arch" />
+        <Column v-if="isColVisible('restoration')" field="restoration" header="Restoration Arch" sortable />
 
-        <Column header="Scan Format">
+        <Column v-if="isColVisible('format')" header="Scan Format">
           <template #body>
             <Tag value="STL / PLY High-Res" severity="success" rounded class="text-[10px] font-mono" />
           </template>
         </Column>
 
-        <Column field="status" header="Pipeline Status">
+        <Column v-if="isColVisible('status')" field="status" header="Pipeline Status" sortable>
           <template #body="{ data }">
             <Tag :value="data.status" severity="info" rounded class="text-[10px]" />
           </template>
@@ -96,7 +107,7 @@
               <button
                 type="button"
                 @click="openScanViewer(data)"
-                class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-indigo-500 hover:text-white transition-colors"
+                class="px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-emerald-500 hover:text-white transition-colors"
               >
                 Inspect 3D
               </button>
@@ -116,11 +127,23 @@ import Tag from 'primevue/tag';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 import { sound } from '@/utils/sound';
 
 const store = useDentalStore();
 const searchQuery = ref('');
+
+const allColumns = [
+  { field: 'orderNumber', header: 'Order #' },
+  { field: 'patientName', header: 'Patient' },
+  { field: 'doctorName', header: 'Doctor / Clinic' },
+  { field: 'restoration', header: 'Restoration Arch' },
+  { field: 'format', header: 'Scan Format' },
+  { field: 'status', header: 'Pipeline Status' }
+];
+const selectedColumns = ref([...allColumns]);
+const isColVisible = (field: string) => selectedColumns.value.some(c => c.field === field);
 
 const scanners = [
   { brand: 'Align Technology', name: 'iTero Element 5D Plus', status: 'Online Sync', fps: '60 FPS NIRI' },

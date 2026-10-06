@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
@@ -36,18 +36,27 @@
           placeholder="Status"
           class="text-xs !rounded-2xl w-32"
         />
+
+        <MultiSelect
+          v-model="selectedColumns"
+          :options="allColumns"
+          optionLabel="header"
+          placeholder="Columns"
+          :maxSelectedLabels="2"
+          class="text-xs !rounded-2xl w-36"
+        />
       </div>
     </div>
 
     <!-- DataTable -->
     <div class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm overflow-hidden">
       <DataTable :value="filteredPatients" responsiveLayout="scroll" class="p-datatable-sm text-xs" :rowHover="true">
-        <Column field="name" header="Patient">
+        <Column v-if="isColVisible('name')" field="name" header="Patient" sortable>
           <template #body="{ data }">
             <div class="flex items-center gap-2.5">
-              <Avatar :label="data.name[0]" shape="circle" class="bg-indigo-500/10 text-indigo-600 font-bold" />
+              <Avatar :label="data.name[0]" shape="circle" class="bg-emerald-500/10 text-emerald-600 font-bold" />
               <div>
-                <router-link :to="`/patients/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-indigo-500 transition-colors">
+                <router-link :to="`/patients/${data.id}`" class="font-extrabold text-slate-900 dark:text-white hover:text-emerald-500 transition-colors">
                   {{ data.name }}
                 </router-link>
                 <div class="text-[10px] text-slate-400">DOB: {{ formatDate(data.dob) }} ({{ data.gender }})</div>
@@ -56,27 +65,27 @@
           </template>
         </Column>
 
-        <Column field="phone" header="Contact">
+        <Column v-if="isColVisible('phone')" field="phone" header="Contact" sortable>
           <template #body="{ data }">
             <div class="font-mono text-slate-800 dark:text-slate-200">{{ data.phone }}</div>
             <div class="text-[10px] text-slate-400">{{ data.email }}</div>
           </template>
         </Column>
 
-        <Column field="clinicName" header="Clinic / Doctor">
+        <Column v-if="isColVisible('clinicName')" field="clinicName" header="Clinic / Doctor" sortable>
           <template #body="{ data }">
             <div class="font-medium text-slate-800 dark:text-slate-200">{{ data.clinicName }}</div>
             <div class="text-[10px] text-slate-400">{{ data.doctorName }}</div>
           </template>
         </Column>
 
-        <Column field="ordersCount" header="Prescriptions" sortable>
+        <Column v-if="isColVisible('ordersCount')" field="ordersCount" header="Prescriptions" sortable>
           <template #body="{ data }">
             <span class="font-mono font-bold">{{ data.ordersCount || 0 }} Cases</span>
           </template>
         </Column>
 
-        <Column field="status" header="Status">
+        <Column v-if="isColVisible('status')" field="status" header="Status" sortable>
           <template #body="{ data }">
             <Tag :value="data.status" :severity="data.status === 'Active' ? 'success' : 'secondary'" rounded class="text-[10px]" />
           </template>
@@ -132,9 +141,20 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 import { formatDate } from '@/utils/format';
 import { sound } from '@/utils/sound';
+
+const allColumns = [
+  { field: 'name', header: 'Patient' },
+  { field: 'phone', header: 'Contact' },
+  { field: 'clinicName', header: 'Clinic / Doctor' },
+  { field: 'ordersCount', header: 'Prescriptions' },
+  { field: 'status', header: 'Status' }
+];
+const selectedColumns = ref([...allColumns]);
+const isColVisible = (field: string) => selectedColumns.value.some(c => c.field === field);
 
 const store = useDentalStore();
 const searchQuery = ref('');

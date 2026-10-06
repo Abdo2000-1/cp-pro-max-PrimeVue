@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="space-y-6 w-full min-w-0">
     <!-- Header (Matching Image 4) -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -13,8 +13,8 @@
 
       <!-- Right: Active Counter Pill (Image 4 style) -->
       <div class="flex items-center gap-3">
-        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-xs font-bold">
-          <span class="w-2 h-2 rounded-full bg-indigo-500" />
+        <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-emerald-500" />
           <span>{{ orders.length }} Active Orders</span>
         </div>
 
@@ -80,6 +80,16 @@
           class="text-xs !rounded-2xl w-36"
         />
 
+        <!-- Column Visibility MultiSelect -->
+        <MultiSelect
+          v-model="selectedColumns"
+          :options="allColumns"
+          optionLabel="header"
+          placeholder="Columns"
+          :maxSelectedLabels="2"
+          class="text-xs !rounded-2xl w-40"
+        />
+
         <!-- Filter Icon Button -->
         <button
           type="button"
@@ -97,7 +107,7 @@
           class="p-2 rounded-2xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
           title="Refresh Table Data"
         >
-          <i :class="['pi pi-refresh text-xs', isRefreshing ? 'animate-spin text-indigo-500' : '']" />
+          <i :class="['pi pi-refresh text-xs', isRefreshing ? 'animate-spin text-emerald-500' : '']" />
         </button>
 
         <!-- Quick Stepper (Image 4 style: 1 of 15 < >) -->
@@ -128,7 +138,7 @@
     <div v-if="simulatedState === 'loading'" class="rounded-3xl bg-white dark:bg-[#090e18] border border-slate-200/90 dark:border-slate-800 shadow-sm p-6 space-y-4">
       <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800/80">
         <div class="flex items-center gap-3">
-          <i class="pi pi-spin pi-spinner text-indigo-500 text-lg" />
+          <i class="pi pi-spin pi-spinner text-emerald-500 text-lg" />
           <div>
             <h4 class="text-xs font-bold text-slate-900 dark:text-white">Synchronizing PACS Dental Repository...</h4>
             <p class="text-[11px] text-slate-400">Loading 64 clinical records, STL geometries, and milling schedules</p>
@@ -204,11 +214,11 @@
         <Column selectionMode="multiple" headerStyle="width: 3rem" />
 
         <!-- Column 1: Order # -->
-        <Column field="orderNumber" header="Order #" sortable>
+        <Column v-if="isColVisible('orderNumber')" field="orderNumber" header="Order #" sortable>
           <template #body="{ data }">
             <router-link
               :to="`/orders/${data.id}`"
-              class="font-mono font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+              class="font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
             >
               #{{ data.orderNumber }}
             </router-link>
@@ -216,7 +226,7 @@
         </Column>
 
         <!-- Column 2: Name / Patient with Avatar & Status Dot (Image 4 style) -->
-        <Column field="patientName" header="Name" sortable>
+        <Column v-if="isColVisible('patientName')" field="patientName" header="Name" sortable>
           <template #body="{ data }">
             <div class="flex items-center gap-2.5">
               <div class="relative shrink-0">
@@ -228,7 +238,7 @@
                 <span
                   :class="[
                     'absolute top-0 right-0 w-2 h-2 rounded-full border border-white dark:border-slate-900',
-                    data.status === 'Completed' || data.status === 'Ready' ? 'bg-indigo-500' : 'bg-amber-500'
+                    data.status === 'Completed' || data.status === 'Ready' ? 'bg-emerald-500' : 'bg-amber-500'
                   ]"
                 />
               </div>
@@ -241,7 +251,7 @@
         </Column>
 
         <!-- Column 3: Title / Restoration -->
-        <Column field="restoration" header="Restoration & Arch" sortable>
+        <Column v-if="isColVisible('restoration')" field="restoration" header="Restoration & Arch" sortable>
           <template #body="{ data }">
             <div>
               <span class="font-bold text-slate-800 dark:text-slate-200">{{ data.restoration }}</span>
@@ -251,7 +261,7 @@
         </Column>
 
         <!-- Column 4: Company / Clinic Name (with Icon matching Image 4) -->
-        <Column field="clinicName" header="Company Name" sortable>
+        <Column v-if="isColVisible('clinicName')" field="clinicName" header="Company Name" sortable>
           <template #body="{ data }">
             <div class="flex items-center gap-1.5">
               <div class="w-5 h-5 rounded-md bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] text-slate-600 dark:text-slate-300">
@@ -263,7 +273,7 @@
         </Column>
 
         <!-- Column 5: Email Address -->
-        <Column header="Email Address">
+        <Column v-if="isColVisible('email')" field="patientName" header="Email Address" sortable>
           <template #body="{ data }">
             <span class="text-slate-500 font-mono text-[11px] truncate max-w-[140px] block">
               {{ data.patientName.toLowerCase().replace(' ', '.') }}@gmail.com
@@ -272,14 +282,14 @@
         </Column>
 
         <!-- Column 6: Lead Source / Doctor -->
-        <Column field="doctorName" header="Lead Source / Doctor" sortable>
+        <Column v-if="isColVisible('doctorName')" field="doctorName" header="Lead Source / Doctor" sortable>
           <template #body="{ data }">
             <span class="text-slate-700 dark:text-slate-300 font-medium">{{ data.doctorName }}</span>
           </template>
         </Column>
 
         <!-- Column 7: Status Pills (Active / Inactive / Prospect matching Image 4) -->
-        <Column field="status" header="Status" sortable>
+        <Column v-if="isColVisible('status')" field="status" header="Status" sortable>
           <template #body="{ data }">
             <Tag
               :value="data.status"
@@ -291,13 +301,13 @@
         </Column>
 
         <!-- Column 8: Action Icons (Eye, Edit, Mail matching Image 4) -->
-        <Column header="Actions" headerStyle="text-align: right" bodyStyle="text-align: right">
+        <Column v-if="isColVisible('actions')" header="Actions" headerStyle="text-align: right" bodyStyle="text-align: right">
           <template #body="{ data }">
             <div class="flex items-center justify-end gap-1 text-slate-400">
               <button
                 type="button"
                 @click="$router.push(`/orders/${data.id}`)"
-                class="p-1.5 rounded-lg hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-colors"
+                class="p-1.5 rounded-lg hover:text-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
                 title="View Case"
               >
                 <i class="pi pi-eye text-xs" />
@@ -376,6 +386,7 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
+import MultiSelect from 'primevue/multiselect';
 import { useDentalStore } from '@/stores/dental';
 import { sound } from '@/utils/sound';
 
@@ -388,6 +399,23 @@ const isRefreshing = ref(false);
 const selectedOrders = ref([]);
 const currentPage = ref(1);
 const pageSize = 8;
+
+const allColumns = [
+  { field: 'orderNumber', header: 'Order #' },
+  { field: 'patientName', header: 'Name' },
+  { field: 'restoration', header: 'Restoration & Arch' },
+  { field: 'clinicName', header: 'Company Name' },
+  { field: 'email', header: 'Email Address' },
+  { field: 'doctorName', header: 'Lead Source / Doctor' },
+  { field: 'status', header: 'Status' },
+  { field: 'actions', header: 'Actions' },
+];
+
+const selectedColumns = ref([...allColumns]);
+
+const isColVisible = (field: string) => {
+  return selectedColumns.value.some(c => c.field === field);
+};
 
 const statusOptions = [
   { label: 'All Stages', value: 'all' },

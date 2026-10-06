@@ -120,6 +120,9 @@
           </router-view>
         </div>
       </main>
+
+      <!-- 4. Global Dynamic Footer -->
+      <Footer />
     </div>
   </div>
 </template>
@@ -127,6 +130,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import ConvertibleNav, { type NavPosition } from './ConvertibleNav.vue';
+import Footer from './Footer.vue';
 import { ArrowLeft, ArrowRight, ArrowUp, ArrowDown } from 'lucide-vue-next';
 import { useDentalStore } from '@/stores/dental';
 

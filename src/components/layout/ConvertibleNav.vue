@@ -98,23 +98,149 @@
           </router-link>
         </div>
 
-        <!-- Center: The 8 Target Modernized Pages Navigation Items -->
-        <nav class="hidden md:flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+        <!-- Center: Clean, Focused Navigation (Primary Pages + Operations Dropdown) -->
+        <nav class="hidden md:flex items-center gap-1.5 py-1">
           <router-link
-            v-for="item in targetNavItems"
-            :key="item.id"
-            :to="item.path"
+            to="/dashboard"
             @click="sound.playClick(620)"
             :class="[
               'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
-              isActiveRoute(item.path)
+              isActiveRoute('/dashboard')
                 ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 shadow-xs'
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
             ]"
           >
-            <component :is="item.icon" class="w-3.5 h-3.5 shrink-0" />
-            <span>{{ item.label }}</span>
+            <LayoutDashboard class="w-3.5 h-3.5 shrink-0" />
+            <span>Dashboard</span>
           </router-link>
+
+          <router-link
+            to="/flow"
+            @click="sound.playClick(620)"
+            :class="[
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
+              isActiveRoute('/flow') || isActiveRoute('/orders')
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs font-black'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+            ]"
+          >
+            <Layers class="w-3.5 h-3.5 shrink-0" />
+            <span>Workflow Queue</span>
+          </router-link>
+
+          <router-link
+            to="/add-case"
+            @click="sound.playClick(620)"
+            :class="[
+              'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap',
+              isActiveRoute('/add-case')
+                ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs'
+                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/60'
+            ]"
+          >
+            <FilePlus2 class="w-3.5 h-3.5 shrink-0" />
+            <span>Add Case</span>
+          </router-link>
+
+          <!-- Operations & Analytics Dropdown Menu -->
+          <div class="relative" ref="opsMenuRef">
+            <button
+              type="button"
+              @click="opsMenuOpen = !opsMenuOpen"
+              :class="[
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border',
+                opsMenuOpen || isOpsActive
+                  ? 'border-indigo-500/60 text-indigo-600 dark:text-indigo-400 bg-indigo-500/10'
+                  : 'border-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              ]"
+              title="Open Operations & Clinical Modules Menu"
+            >
+              <Boxes class="w-3.5 h-3.5" />
+              <span>Operations & Analytics</span>
+              <ChevronDown class="w-3 h-3 transition-transform duration-200" :class="opsMenuOpen ? 'rotate-180' : ''" />
+            </button>
+
+            <div
+              v-if="opsMenuOpen"
+              class="absolute top-11 left-0 w-64 rounded-2xl bg-white dark:bg-[#0c1222] border border-slate-200 dark:border-slate-800 shadow-2xl p-2 z-50 space-y-1"
+            >
+              <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider px-2.5 py-1">
+                Analytics & Targets
+              </div>
+
+              <router-link
+                to="/quarter-targets"
+                @click="opsMenuOpen = false"
+                class="flex items-center gap-2.5 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-slate-800 dark:text-slate-200"
+              >
+                <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                  <TrendingUp class="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div class="text-slate-900 dark:text-white">Quarter Targets & Power BI</div>
+                  <div class="text-[10px] text-slate-400 font-normal">Executive metrics & live report</div>
+                </div>
+              </router-link>
+
+              <router-link
+                to="/task-47"
+                @click="opsMenuOpen = false"
+                class="flex items-center gap-2.5 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-slate-800 dark:text-slate-200"
+              >
+                <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
+                  <Boxes class="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div class="text-slate-900 dark:text-white">Task 47: Models Report</div>
+                  <div class="text-[10px] text-slate-400 font-normal">Production throughput</div>
+                </div>
+              </router-link>
+
+              <router-link
+                to="/task-31"
+                @click="opsMenuOpen = false"
+                class="flex items-center gap-2.5 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors text-slate-800 dark:text-slate-200"
+              >
+                <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+                  <Users2 class="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div class="text-slate-900 dark:text-white">Task 31: Staff Targets</div>
+                  <div class="text-[10px] text-slate-400 font-normal">Team quota performance</div>
+                </div>
+              </router-link>
+
+              <div class="pt-1 border-t border-slate-100 dark:border-slate-800/80">
+                <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider px-2.5 py-1">
+                  Case Tools & Inspection
+                </div>
+                <router-link
+                  to="/order-details"
+                  @click="opsMenuOpen = false"
+                  class="flex items-center gap-2 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-700 dark:text-slate-300"
+                >
+                  <FileText class="w-3.5 h-3.5 text-slate-400" />
+                  <span>Order Details</span>
+                </router-link>
+                <router-link
+                  to="/edit-case"
+                  @click="opsMenuOpen = false"
+                  class="flex items-center gap-2 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-700 dark:text-slate-300"
+                >
+                  <FileEdit class="w-3.5 h-3.5 text-slate-400" />
+                  <span>Edit Case Form</span>
+                </router-link>
+                <router-link
+                  to="/cms"
+                  @click="opsMenuOpen = false"
+                  class="flex items-center gap-2 p-2 rounded-xl text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-emerald-600 dark:text-emerald-400 font-bold"
+                >
+                  <SlidersHorizontal class="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Admin CMS Settings</span>
+                </router-link>
+              </div>
+            </div>
+          </div>
         </nav>
 
         <!-- Right: Language, Theme, & User Profile -->
@@ -378,6 +504,10 @@
   </div>
 </template>
 
+<script lang="ts">
+export type NavPosition = 'top' | 'left' | 'right' | 'bottom';
+</script>
+
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -385,13 +515,11 @@ import {
   Layers, FilePlus2, FileText, TrendingUp, Boxes, LayoutDashboard,
   Users2, FileEdit, GripVertical, ChevronLeft, ChevronRight, Sun, Moon,
   PanelLeftClose, PanelRightClose, PanelTopClose, PanelBottomClose,
-  Check, ChevronDown, Compass
+  Check, ChevronDown, Compass, SlidersHorizontal
 } from 'lucide-vue-next';
 import { useDentalStore } from '@/stores/dental';
 import { useLanguage } from '@/composables/useLanguage';
 import { sound } from '@/utils/sound';
-
-export type NavPosition = 'top' | 'left' | 'right' | 'bottom';
 
 const props = defineProps<{
   position: NavPosition;
@@ -412,10 +540,37 @@ const { language, setLanguage, currentOption, t, languages } = useLanguage();
 
 const langDropdownOpen = ref(false);
 const dockPickerOpen = ref(false);
+const opsMenuOpen = ref(false);
 const langRef = ref<HTMLElement | null>(null);
 const dockPickerRef = ref<HTMLElement | null>(null);
+const opsMenuRef = ref<HTMLElement | null>(null);
 
 const isVertical = computed(() => props.position === 'left' || props.position === 'right');
+
+const isOpsActive = computed(() => {
+  return ['/quarter-targets', '/task-47', '/task-31', '/order-details', '/edit-case', '/cms', '/config-manager'].includes(route.path);
+});
+
+// Close dropdowns on outside click
+const handleClickOutside = (e: MouseEvent) => {
+  if (langRef.value && !langRef.value.contains(e.target as Node)) {
+    langDropdownOpen.value = false;
+  }
+  if (dockPickerRef.value && !dockPickerRef.value.contains(e.target as Node)) {
+    dockPickerOpen.value = false;
+  }
+  if (opsMenuRef.value && !opsMenuRef.value.contains(e.target as Node)) {
+    opsMenuOpen.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 
 // Exact 8 Target Pages from 3DDX CP
 const targetNavItems = computed(() => [
@@ -497,21 +652,4 @@ const handlePointerDownDrag = (e: PointerEvent) => {
   window.addEventListener('pointermove', onPointerMove);
   window.addEventListener('pointerup', onPointerUp);
 };
-
-const handleClickOutside = (e: MouseEvent) => {
-  if (langRef.value && !langRef.value.contains(e.target as Node)) {
-    langDropdownOpen.value = false;
-  }
-  if (dockPickerRef.value && !dockPickerRef.value.contains(e.target as Node)) {
-    dockPickerOpen.value = false;
-  }
-};
-
-onMounted(() => {
-  document.addEventListener('mousedown', handleClickOutside);
-});
-
-onUnmounted(() => {
-  document.removeEventListener('mousedown', handleClickOutside);
-});
 </script>

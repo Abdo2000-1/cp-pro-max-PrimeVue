@@ -66,6 +66,16 @@ const routes: RouteRecordRaw[] = [
         name: 'Profile',
         component: () => import('@/pages/Profile.vue')
       },
+      {
+        path: 'config-manager',
+        name: 'ConfigManager',
+        component: () => import('@/pages/ConfigManager.vue')
+      },
+      {
+        path: 'cms',
+        name: 'CMS',
+        component: () => import('@/pages/ConfigManager.vue')
+      },
 
       // Analytics & Odontogram Auxiliary Pages
       {

@@ -419,7 +419,9 @@ import {
 } from 'lucide-vue-next';
 import SortTh from '@/components/ui/SortTh.vue';
 import { sound } from '@/utils/sound';
+import { useAppConfig } from '@/composables/useAppConfig';
 
+const { config } = useAppConfig();
 const activeView = ref<'dashboard' | 'matrix' | 'powerbi' | 'config'>('dashboard');
 const isRefreshing = ref(false);
 const searchQuery = ref('');
@@ -438,6 +440,7 @@ function handleClientSort(field: string) {
 }
 
 const powerBiEmbedUrl = ref(
+  config.value.powerBi?.defaultEmbedUrl ||
   'https://app.powerbi.com/view?r=eyJrIjoiNTRjMzI0MmQtNTA3YS00N2MwLWI0ZTctMGEyOGUwOGI0OTRhIiwidCI6IjI1ZDIwZjU1LWIxMGMtNDk5MS1hMTJlLWRlOWZkZDA2YTY0MCIsImMiOjZ9'
 );
 
